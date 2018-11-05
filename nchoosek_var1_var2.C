@@ -1,3 +1,6 @@
+const int maxn = 10;
+
+
 // RB - we haven't talked about this yet but you need function protoypes at the top
 void generate();
 int NCK(int,int);
@@ -10,7 +13,7 @@ void generate()
 {
 
   ofstream fout("list_of_numbers");
-  for ( int i = 0; i < 10; ++i )
+  for ( int i = 0; i < maxn; ++i )
     {
       fout << i << " " << 2*i << endl;
     }
@@ -51,9 +54,9 @@ int NDK(int n, int r)
   //int var1 ["numberofn"] , var2 ["numberofr"];
   // RB - you can't use quotes to indicate a variable name, nor can you use a variable you haven't yet defined
   // RB - and why would you want var1 and var2 to have different sizes?
-  int var1[10], var2[10];
+  int var1[maxn], var2[maxn];
   //setting the number of array items to the inputs; need to write something to detect this
-  for ( int i = 0; i < 10; ++i ) // RB - I guess you want to have a for loop here?
+  for ( int i = 0; i < maxn; ++i ) // RB - I guess you want to have a for loop here?
     {
       fin >> var1[i] >> var2[i];
       cout << var1[i] << " " << var2[i] << "\n";
@@ -79,8 +82,8 @@ void nchoosek_var1_var2()
 
   ifstream fin("list_of_numbers");
   //int var1 ["numberofn"] , var2 ["numberofr"]; // RB - you can't do this, see comments above
-  int var1 [10] , var2 [10];
-  for ( int i = 0; i < 10; ++i )
+  int var1 [maxn] , var2 [maxn];
+  for ( int i = 0; i < maxn; ++i )
     // RB - don't put blank lines in between the for statement and the brackets
     {
       fin >> var1[i] >> var2[i];
@@ -91,7 +94,7 @@ void nchoosek_var1_var2()
 
   // RB - see comments above; I guess you want to pass "numberofn" as an argument to this function here?
   // RB - but I can't tell why or what you mean by it
-  TGraph* tg = new TGraph (10, var1, var2);
+  TGraph* tg = new TGraph (maxn, var1, var2);
   tg->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
   tg->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   tg->Draw("al");
@@ -101,7 +104,8 @@ void nchoosek_var1_var2()
   // RB - as function arguments.  I don't know what these are supposed to mean, but I doubt that's actually
   // RB - the fit range you want to use...
   //tg->Fit("f1","","",0,("numberofn"*"numberofr");
-  tg->Fit("f1","","",0,10);
+  double fitmax = (double)maxn;
+  tg->Fit("f1","","",0,fitmax);
   c1->Print("patharray1.png");
 
 
