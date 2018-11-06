@@ -44,30 +44,7 @@ int NCK(int n, int r)
 // RB - always put several blank lines in between functions, it makes the code much more readable
 int NDK(int n, int r)
 {
-  if (r == 0) return 0; // RB - very smart to have safety checks like this
-  // avoiding a collapse
-  //{ // RB - I don't know why you have a brace here
-
-  ifstream fin("list_of_numbers");
-  // printing from a file
-
-  //int var1 ["numberofn"] , var2 ["numberofr"];
-  // RB - you can't use quotes to indicate a variable name, nor can you use a variable you haven't yet defined
-  // RB - and why would you want var1 and var2 to have different sizes?
-  int var1[maxn], var2[maxn];
-  //setting the number of array items to the inputs; need to write something to detect this
-  for ( int i = 0; i < maxn; ++i ) // RB - I guess you want to have a for loop here?
-    {
-      fin >> var1[i] >> var2[i];
-      cout << var1[i] << " " << var2[i] << "\n";
-    }
-  fin.close();
-
-  //} RB - I don't know why you have a brace here
-
-  // RB - you don't do a return here, but ROOT allows it to run and just issues a warning
-  // RB - however, I suspect you intended to return a value
-
+  return n/r;
 } // int NDK
 
 
@@ -83,18 +60,65 @@ void nchoosek_var1_var2()
   ifstream fin("list_of_numbers");
   //int var1 ["numberofn"] , var2 ["numberofr"]; // RB - you can't do this, see comments above
   int var1 [maxn] , var2 [maxn];
-  for ( int i = 0; i < maxn; ++i )
-    // RB - don't put blank lines in between the for statement and the brackets
+
+  int NC2[maxn];// defined as choosing array
+  int ND2[maxn];// defined as dividing array
+  double OPER2[maxn];// output array for the operation defined below // double makes this a float and not an integer
+  int NC4[maxn];// defined as choosing array
+  int ND4[maxn];// defined as dividing array
+  double OPER4[maxn];// output array for the operation defined below
+  int NC6[maxn];// defined as choosing array
+  int ND6[maxn];// defined as dividing array
+  double OPER6[maxn];// output array for the operation defined below
+  int NC8[maxn];// defined as choosing array
+  int ND8[maxn];// defined as dividing array
+  double OPER8[maxn];// output array for the operation defined below
+  double num[maxn]; // new array for number of particles for which we are studying the dilution (what we want to prove/disprove)
+  for ( int i = 0; i < maxn; ++i )// defines the loop as repeating until we reach maxn
     {
-      fin >> var1[i] >> var2[i];
-      cout << var1[i] << " " << var2[i] << "\n";
+      num[i] = i;// assigned number of total particles
+      
+      // choose 2 to start
+
+      NC2[i] = NCK(i,2); // assigns element i of array NC2(choosing array) to the function output of NCK of i and 2
+      
+      ND2[i] = NDK(i,2); // assigns element i of array ND2(dividing array) to the function output of NDK of i and 2
+
+      OPER2[i] =(double)ND2[i]/(double)NC2[i]; // applies divison operation from congruent elements in ND2 and NC2 (the original goal)
+     
+      cout << i << " " << NC2[i] << " " << ND2[i] << " " << OPER2[i] << endl;
+      
+      // --- now choose 4
+	
+      NC4[i] = NCK(i,4); // assigns element i of array NC4(choosing array) to the function output of NCK of i and 4
+
+      ND4[i] = NDK(i,4); // assigns element i of array ND4(dividing array) to the function output of NDK of i and 4
+
+      OPER4[i] = ND4[i]/NC4[i]; // applies divison operation from congruent elements in ND4 and NC4 (the original goal)
+
+      // --- now choose 6
+
+      NC6[i] = NCK(i,6); // assigns element i of array NC6(choosing array) to the function output of NCK of i and 6
+
+      ND6[i] = NDK(i,6); // assigns element i of array ND6(dividing array) to the function output of NDK of i and 6
+
+      OPER6[i] = ND6[i]/NC6[i]; // applies divison operation from congruent elements in ND6 and NC6 (the original goal)
+
+      // --- now choose 8
+
+      NC8[i] = NCK(i,8); // assigns element i of array NC8(choosing array) to the function output of NCK of i and 8
+
+      ND8[i] = NDK(i,8); // assigns element i of array ND8(dividing array) to the function output of NDK of i and 8
+
+      OPER8[i] = ND8[i]/NC8[i]; // applies divison operation from congruent elements in ND8 and NC8 (the original goal)
+
     }
   fin.close();
 
 
   // RB - see comments above; I guess you want to pass "numberofn" as an argument to this function here?
   // RB - but I can't tell why or what you mean by it
-  TGraph* tg = new TGraph (maxn, var1, var2);
+  TGraph* tg = new TGraph (maxn, num, OPER2);
   tg->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
   tg->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   tg->Draw("al");
@@ -105,41 +129,10 @@ void nchoosek_var1_var2()
   // RB - the fit range you want to use...
   //tg->Fit("f1","","",0,("numberofn"*"numberofr");
   double fitmax = (double)maxn;
-  tg->Fit("f1","","",0,fitmax);
+  // tg->Fit("f1","","",0,fitmax);
   c1->Print("patharray1.png");
 
 
-
-  // RB - just an FYI, I'll show you how to call your function, assign variables with it, etc.
-  // RB - you can initialize variables using the function like this:
-  int b5c1 = NCK(5,1);
-  int b5c2 = NCK(5,2);
-  cout << "5 choose 1 is " << b5c1 << endl;
-  cout << "5 choose 2 is " << b5c2 << endl;
-  // RB - you can also call the fucntion directly like this
-  cout << "5 choose 3 is " << NCK(5,3) << endl;
-  cout << "5 choose 4 is " << NCK(5,4) << endl;
-  cout << "5 choose 5 is " << NCK(5,5) << endl;
-  // RB - you can also put it in a loop if you like
-  cout << "-------------------------" << endl;
-  cout << "Now doing nested for loop" << endl;
-  for ( int i = 0; i < 7; ++i )
-    {
-      for ( int j = 0; j <= i; ++j )
-        {
-          cout << i << " choose " << j << " is " << NCK(i,j) << endl;
-        }
-    }
-  cout << "-------------------------------" << endl;
-  cout << "Now doing nested for loop again" << endl;
-  for ( int i = 0; i < 7; ++i )
-    {
-      for ( int j = 0; j <= i; ++j )
-        {
-          cout << NCK(i,j) << " ";
-        }
-      cout << endl;
-    }
 
 } // end of nchoosek_var1_var2
 
