@@ -118,10 +118,10 @@ void nchoosek_var1_var2()
 
   // RB - see comments above; I guess you want to pass "numberofn" as an argument to this function here?
   // RB - but I can't tell why or what you mean by it
-  TGraph* tg = new TGraph (maxn, num, OPER2);
-  tg->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
-  tg->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
-  tg->Draw("al");
+  TGraph* tg2 = new TGraph (maxn, num, OPER2);
+  tg2->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
+  tg2->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
+  tg2->Draw("al");
 
 } // end of nchoosek_var1_var2
 
