@@ -86,7 +86,7 @@ void nchoosek_var1_var2()
 
       OPER2[i] =(double)ND2[i]/(double)NC2[i]; // applies divison operation from congruent elements in ND2 and NC2 (the original goal)
      
-      cout << i << " " << NC2[i] << " " << ND2[i] << " " << OPER2[i] << endl;
+      //      cout << i << " " << NC2[i] << " " << ND2[i] << " " << OPER2[i] << endl;
       
       // --- now choose 4
 	
@@ -94,7 +94,9 @@ void nchoosek_var1_var2()
 
       ND4[i] = NDK(i,4); // assigns element i of array ND4(dividing array) to the function output of NDK of i and 4
 
-      OPER4[i] = ND4[i]/NC4[i]; // applies divison operation from congruent elements in ND4 and NC4 (the original goal)
+      OPER4[i] =(double)ND4[i]/(double)NC4[i]; // applies divison operation from congruent elements in ND4 and NC4 (the original goal)
+
+      cout << i << " " << NC4[i] << " " << ND4[i] << " " << OPER4[i] << endl;
 
       // --- now choose 6
 
@@ -102,7 +104,7 @@ void nchoosek_var1_var2()
 
       ND6[i] = NDK(i,6); // assigns element i of array ND6(dividing array) to the function output of NDK of i and 6
 
-      OPER6[i] = ND6[i]/NC6[i]; // applies divison operation from congruent elements in ND6 and NC6 (the original goal)
+      OPER6[i] = (double)ND6[i]/(double)NC6[i]; // applies divison operation from congruent elements in ND6 and NC6 (the original goal)
 
       // --- now choose 8
 
@@ -110,7 +112,7 @@ void nchoosek_var1_var2()
 
       ND8[i] = NDK(i,8); // assigns element i of array ND8(dividing array) to the function output of NDK of i and 8
 
-      OPER8[i] = ND8[i]/NC8[i]; // applies divison operation from congruent elements in ND8 and NC8 (the original goal)
+      OPER8[i] = (double)ND8[i]/(double)NC8[i]; // applies divison operation from congruent elements in ND8 and NC8 (the original goal)
 
     }
   fin.close();
@@ -122,6 +124,36 @@ void nchoosek_var1_var2()
   tg2->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
   tg2->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   tg2->Draw("al");
+  c1->Print("figure_oper2.png");
+  
+  TGraph* tg4 = new TGraph (maxn, num, OPER4);
+  tg4->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
+  tg4->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
+  tg4->Draw("al");
+  c1->Print("figure_oper4.png");
+    tg4->SetMinimum(1e-5); // sets to 1/10000000 scale
+  c1->SetLogy();// Sets y axis to log scale
+  c1->Print("figure_oper4_log.png");
+
+
+  TGraph* tg6 = new TGraph (maxn, num, OPER6);
+  tg6->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
+  tg6->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
+  tg6->Draw("al");
+  c1->Print("figure_oper6.png");
+  tg6->SetMinimum(1e-6); // sets to 1/10000000 scale
+  c1->SetLogy();// Sets y axis to log scale
+  c1->Print("figure_oper6_log.png");
+
+  TGraph* tg8 = new TGraph (maxn, num, OPER8);
+  tg8->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
+  tg8->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
+  tg8->Draw("al");
+  c1->Print("figure_oper8.png");
+  tg8->SetMinimum(1e-10); // sets to 1/10000000 scale
+  c1->SetLogy();// Sets y axis to log scale
+  c1->Print("figure_oper8_log.png");
+
 
 } // end of nchoosek_var1_var2
 
