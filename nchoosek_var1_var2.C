@@ -1,4 +1,4 @@
-const int maxn = 10;
+const int maxn =25;
 
 
 // RB - we haven't talked about this yet but you need function protoypes at the top
@@ -122,17 +122,6 @@ void nchoosek_var1_var2()
   tg->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
   tg->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   tg->Draw("al");
-
-  TF1* f1 = new TF1("f1","pol1");
-  // RB - I can't tell what you're trying to do here; I guess you want to pass numberofn and numberofr
-  // RB - as function arguments.  I don't know what these are supposed to mean, but I doubt that's actually
-  // RB - the fit range you want to use...
-  //tg->Fit("f1","","",0,("numberofn"*"numberofr");
-  double fitmax = (double)maxn;
-  // tg->Fit("f1","","",0,fitmax);
-  c1->Print("patharray1.png");
-
-
 
 } // end of nchoosek_var1_var2
 
