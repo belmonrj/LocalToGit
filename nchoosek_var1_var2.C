@@ -121,9 +121,15 @@ void nchoosek_var1_var2()
   // RB - see comments above; I guess you want to pass "numberofn" as an argument to this function here?
   // RB - but I can't tell why or what you mean by it
   TGraph* tg2 = new TGraph (maxn, num, OPER2);
-  tg2->SetLineWidth(4); // RB - added this to make it a bit easier to see under the fit
+  tg2->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   tg2->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
+  tg2->SetLineColor(kRed);
   tg2->Draw("al");
+  c1->Print("figure_oper2.png");
+  TGraph* tgm2 = new TGraph (maxn, num, OPER2);
+  tg2->SetMarkerStyle(kOpenCircle); // Set to points and not a line, so that we can see the discrete nature of the function
+  tg2->SetMarkerColor(kBlack); 
+  tg2->Draw("p");
   c1->Print("figure_oper2.png");
   
   TGraph* tg4 = new TGraph (maxn, num, OPER4);
