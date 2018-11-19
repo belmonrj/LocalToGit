@@ -50,8 +50,9 @@ void FallinFac1()
 
   TCanvas* c4 = new TCanvas();
 
-  generate(); 
+  generate();
   double o[maxn]={0};
+  double falling[maxn]={0};
   ifstream fin("list_of_numbers");
   long long factoriala[maxn];
   double num[maxn];
@@ -70,6 +71,7 @@ void FallinFac1()
       NM1FTOK[j] = ( pow (j-1, k-1));
       //cout << "NM1FTOK is " << NM1FTOK[j] << endl;
       o[j] = ((float)KM1F[j] /(float)NM1FTOK[j]);
+      falling[j] = (float)factorial(j-1)/(float)factorial(j-1,k-1);
       // cout << j << " " << NFACa[j] << " " << NM1F[j] << " " << NM1FTOK[j] << " "
       //   << " The number of particle correlations is expected to be proportional to the number of particles in the event. thus" <<
       //"K minus one factorial, divided by n to the k minus one, is" <<  o << " " << endl;
@@ -78,17 +80,22 @@ void FallinFac1()
   // for loop
   cout << factorial(10,2) << " " << factorial(10,3) << " "  << factorial(10,10) << " "  << factorial(10) << endl;
   fin.close();
- 
+
   TGraph* c3 = new TGraph (maxn, num, o);
-  c3->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit                                                                                              
-  c3->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit                                                                                              
+  c3->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
+  c3->SetLineStyle(1); // RB - added this to make it a bit easier to see under the fit
   c3->SetLineColor(kRed);
   c3->Draw("al");
+  TGraph* cfall = new TGraph (maxn, num, o);
+  cfall->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
+  cfall->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
+  cfall->SetLineColor(kBlue);
+  cfall->Draw("l");
   c4->Print("FallinFac1.png");
- 
+
   // TGraph* tgm2 = new TGraph (maxn, );
-  // tg2->SetMarkerStyle(kOpenCircle); // Set to points and not a line, so that we can see the discrete nature of the function                                                          
-  // tg2->SetMarkerColor(kBlack); 
+  // tg2->SetMarkerStyle(kOpenCircle); // Set to points and not a line, so that we can see the discrete nature of the function
+  // tg2->SetMarkerColor(kBlack);
   // tg2->Draw("p");
   // c1->Print("FallinFac1.png");
 }//Fucntion3Gra
