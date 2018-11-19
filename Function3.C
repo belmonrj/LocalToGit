@@ -1,8 +1,7 @@
-const int maxn =10;
+const int maxn =25;
 
 void generate();
 long long NFAC(int);
-long long KFAC(int);
 long long NDIVKFAC(long long, long long);
 
 
@@ -31,16 +30,6 @@ long long NFAC(int n)
 } // N!
 //---------------------------------------------------------
 
-long long KFAC(int k)
-{
-  long long factorialk = 1;
-  for(int i = 1; i <= k; ++i)
-    {
-      factorialk *= i;
-    }
-  return factorialk;
-}// K!
-
 long long NFACDIVKFAC(long long NFAC, long long KFAC)
 {
   return NFAC/KFAC;
@@ -55,14 +44,12 @@ void Function3()
 
   ifstream fin("list_of_numbers");
   long long NFACa[maxn];
-  long long KFACa[maxn];
   long long NFACDIVKFACa[maxn];
 
 
 
   for ( int j = 0; j < maxn; ++j)
     {
-
 
       NFACa[j] = NFAC(j);
       KFACa[j] = KFAC(2);
