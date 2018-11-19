@@ -1,12 +1,12 @@
 const int maxn =10;
 
 void generate();
-int NCK(int,int);
-int NDK(int,int);
-long long NFAC(int,int);
-long long KFAC(int,int);
-long long NMINKFAC(int,int);
-long long OPERTOT(long long, long long, long long);
+int NCKa(int,int);
+int NDKa(int,int);
+long long NFACa(int);
+long long KFACa(int);
+long long NMINKFACa(int,int);
+double OPERTOTa(long long, long long, long long);
 
 
 
@@ -28,17 +28,17 @@ void generate()
 //}//void function2
 //-----------------------------------------------------
 
-int NDK(int n, int k)
+int NDKa(int n, int k)
 {
   if (k == 0) return 1;
 
   else return n/k;
 }// NDK
 //--------------------------------------------------------
-long long NFAC(int n, int k)
+long long NFACa(int n)
 {
 
-  unsigned long long factorialn = 1;
+  long long factorialn = 1;
 
   for(int i = 1; i <=n; ++i)
     {
@@ -48,10 +48,10 @@ long long NFAC(int n, int k)
 }//N!
 //----------------------------------------------------------
 
-long long KFAC(int n, int k)
+long long KFACa(int k)
 {
-  unsigned long long factorialk = 1;
-  for(int i = 1; i <= n; ++i)
+  long long factorialk = 1;
+  for(int i = 1; i <= k; ++i)
     {
       factorialk *= i;
     }
@@ -59,9 +59,9 @@ long long KFAC(int n, int k)
 }//K!
 //-----------------------------------------------------
 
-long long NMINKFAC(int n, int k)
+long long NMINKFACa(int n, int k)
 {
-  unsigned long long factorialj = 1;
+  long long factorialj = 1;
   int j = n - k;
   for(int i = 1; i <= j; ++i)
     {
@@ -71,12 +71,17 @@ long long NMINKFAC(int n, int k)
 }//J!
 //-----------------------------------------------------
 
-long long OPERTTOT(long long factorialn, long long factorialk, long long factorialj)
+double OPERTOTa(long long factorialn, long long factorialk, long long factorialj)
 {
   return factorialn/( factorialk * factorialj);
 }//f(n,k) = N! / K!(N-K)!
 
-void Function2Gra()
+int NCKTOTa(int NDK, double OPERTOT)
+{
+  return NDK/OPERTOT;
+}//f(n,k) = (N/K floor)/(factorialn/(factorialj * factorialk))
+
+void Function2()
 
 {
 
@@ -89,7 +94,9 @@ void Function2Gra()
   int NDK[maxn];// defined as dividing array
   long long NFAC[maxn];// defined as dividing array
   long long KFAC[maxn];// double makes this a float
-  long long OPERTOT[maxn];
+  long long NMINKFAC[maxn];
+  double OPERTOT[maxn];
+  int NCKTOT[maxn];
   int num[maxn];
   //  int NC4[maxn];// defined as choosing array
   // int ND4[maxn];// defined as dividing array
@@ -108,17 +115,19 @@ void Function2Gra()
 
       // choose 2 to start
 
-      NDK[l] = NDK(l,2);
+      NDK[l] = NDKa(l,2);
 
-      NFAC[l] = NFAC(l,2);
+      NFAC[l] = NFACa(l);
 
-      KFAC[l] = KFAC(l,2);
+      KFAC[l] = KFACa(2);
 
-      NMINKFAC[l] = NMINKFAC(l,2);
+      NMINKFAC[l] = NMINKFACa(l,2);
 
-      OPERTOT[l] = OPERTOT(l,2);
+      OPERTOT[l] = OPERTOTa(NFAC[l], KFAC[l], NMINKFAC[l]);
+      
+      NCKTOT[l] = NCKTOTa(NDK[l], OPERTOT[l]);
 
-      cout << l << " " << NDK[l] << " " << NFAC[l] << " " << KFAC[l] << " " << NMINKFAC[l] << " " << OPERTOT[l] << " " <<endl;
+      cout << l << " " << NDK[l] << " " << NFAC[l] << " " << KFAC[l] << " " << NMINKFAC[l] << " " << OPERTOT[l] << " " << NCKTOT[l] << " " <<endl;
 
     } // for loop
   fin.close();
