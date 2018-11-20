@@ -66,12 +66,12 @@ void FallinFac1()
       num[j] = j;
       int k = 2;
       if ( j < k ) continue;
-      NM1F[j] = factorial( j - 1 );//setting it down to just one line from factorial
+      NM1F[j] = factorial( k - 1 );//setting it down to just one line from factorial
       KM1F[j] = factorial( 1 );//for now to test the code
       NM1FTOK[j] = ( pow (j-1, k-1));
       //cout << "NM1FTOK is " << NM1FTOK[j] << endl;
-      o[j] = ((float)KM1F[j] /(float)NM1FTOK[j]);
-      falling[j] = (float)factorial(j-1)/(float)factorial(j-1,k-1);
+      o[j] = ((float)factorial(k-1)/(float)pow(j, k-1));
+      falling[j] = (float)factorial(k-1)/(float)factorial(j-1,k-1);
       // cout << j << " " << NFACa[j] << " " << NM1F[j] << " " << NM1FTOK[j] << " "
       //   << " The number of particle correlations is expected to be proportional to the number of particles in the event. thus" <<
       //"K minus one factorial, divided by n to the k minus one, is" <<  o << " " << endl;
