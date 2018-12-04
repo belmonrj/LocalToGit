@@ -1,19 +1,26 @@
-const int maxn =25;
+//const int maxn =25;
 
 void generate();
 double factorial(int);
 double factorial(int, int);
 double NCK(int, int);
+void doAll3(const int);
 
-void generate()
+void All3()
 {
-  ofstream fout("list_of_numbers");
-  for ( int i = 0; i < maxn; ++i )
-    {
-      fout << i << " " << 2*i << endl;
-    }
+  doAll3(25);
+  doAll3(1000);
+}
 
-} // void generate
+// void generate()
+// {
+//   ofstream fout("list_of_numbers");
+//   for ( int i = 0; i < maxn; ++i )
+//     {
+//       fout << i << " " << 2*i << endl;
+//     }
+
+// } // void generate
 
 
 
@@ -73,7 +80,7 @@ double NCK(int n, int r)
 
 
 //void CompareAllThree()
-void All3()
+void doAll3(const int maxn)
 {
 
   TCanvas* c4 = new TCanvas();
