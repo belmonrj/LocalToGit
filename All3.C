@@ -1,6 +1,6 @@
-//const int maxn =25;
+const int maxn = 1000;
 
-void generate();
+//void generate();
 double factorial(int);
 double factorial(int, int);
 double NCK(int, int);
@@ -9,6 +9,9 @@ void doAll3(const int);
 void All3()
 {
   doAll3(25);
+  doAll3(100);
+  doAll3(200);
+  doAll3(500);
   doAll3(1000);
 }
 
@@ -80,12 +83,12 @@ double NCK(int n, int r)
 
 
 //void CompareAllThree()
-void doAll3(const int maxn)
+void doAll3(int limit)
 {
 
   TCanvas* c4 = new TCanvas();
 
-  generate();
+  //generate();
   double o[maxn]={0};
   double falling[maxn]={0};
   ifstream fin("list_of_numbers");
@@ -131,7 +134,7 @@ void doAll3(const int maxn)
       // cout << j << " " << NFACa[j] << " " << NM1F[j] << " " << NM1FTOK[j] << " "
       //   << " The number of particle correlations is expected to be proportional to the number of particles in the event. thus" <<
       //"K minus one factorial, divided by n to the k minus one, is" <<  o << " " << endl;
-      NfloorNchooseK[j] = (j/k)/((factorial(j))/(factorial(k)*factorial(j - k)));      
+      NfloorNchooseK[j] = (j/k)/((factorial(j))/(factorial(k)*factorial(j - k)));
 
       int m = 4;
       if ( j < m ) continue;
@@ -160,19 +163,19 @@ void doAll3(const int maxn)
   cout << factorial(10,2) << " " << factorial(10,3) << " "  << factorial(10,10) << " "  << factorial(10) << endl;
   fin.close();
 
-  TGraph* c3 = new TGraph (maxn, num, o);
+  TGraph* c3 = new TGraph (limit, num, o);
   c3->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   c3->SetLineStyle(3); // RB - added this to make it a bit easier to see under the fit
   c3->SetLineColor(kRed);
   c3->Draw("al");
   c3->SetMaximum(1);
   c3->SetMinimum(1e-6);
-  TGraph* cfall = new TGraph (maxn, num, falling);
+  TGraph* cfall = new TGraph (limit, num, falling);
   cfall->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cfall->SetLineColor(kBlue);
   cfall->Draw("l");
-  TGraph* cmain = new TGraph (maxn, num, NfloorNchooseK);
+  TGraph* cmain = new TGraph (limit, num, NfloorNchooseK);
   cmain->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cmain->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cmain->SetLineColor(kGreen);
@@ -184,100 +187,107 @@ void doAll3(const int maxn)
   legend->AddEntry(cfall,"fall fac","l");
   legend->SetTextSize(0.05);
   legend->Draw();
-  c4->Print("comb_all3k2.png");
+  //c4->Print("comb_all3k2.png");
+  c4->Print(Form("comb_all3k2_ntrk%d.png",limit));
   //---------------------------------------------------------------------------------------------------------
-  TGraph* c32 = new TGraph (maxn, num, o2);
+  TGraph* c32 = new TGraph (limit, num, o2);
   c32->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   c32->SetLineStyle(3); // RB - added this to make it a bit easier to see under the fit
   c32->SetLineColor(kRed);
   c32->Draw("al");
   c32->SetMaximum(1);
   c32->SetMinimum(1e-6);
-  TGraph* cfall2 = new TGraph (maxn, num, falling2);
+  TGraph* cfall2 = new TGraph (limit, num, falling2);
   cfall2->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall2->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cfall2->SetLineColor(kBlue);
   cfall2->Draw("l");
-  TGraph* cmain2 = new TGraph (maxn, num, NfloorNchooseK2);
+  TGraph* cmain2 = new TGraph (limit, num, NfloorNchooseK2);
   cmain2->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cmain2->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cmain2->SetLineColor(kGreen);
   cmain2->Draw("l");
-  
+
   TLegend* legend2 = new TLegend(0.68,0.68,0.88,0.88);
   legend2->AddEntry(c3,"power","l");
   legend2->AddEntry(cmain,"NKFloor","l");
   legend2->AddEntry(cfall,"fall fac","l");
   legend2->SetTextSize(0.05);
   legend2->Draw();
-  c4->Print("comb_all3k4.png");
+  //c4->Print("comb_all3k4.png");
+  c4->Print(Form("comb_all3k4_ntrk%d.png",limit));
 
   c32->SetMinimum(1e-6);
   c4->SetLogy();
-  c4->Print("comb_all3k4_log.png");
+  //c4->Print("comb_all3k4_log.png");
+  c4->Print(Form("comb_all3k4_log_ntrk%d.png",limit));
 
   //----------------------------------------------------------------------------------------------------------------------
 
 
-  TGraph* c33 = new TGraph (maxn, num, o3);
+  TGraph* c33 = new TGraph (limit, num, o3);
   c33->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   c33->SetLineStyle(3); // RB - added this to make it a bit easier to see under the fit
   c33->SetLineColor(kRed);
   c33->Draw("al");
   c33->SetMaximum(1);
   c33->SetMinimum(1e-6);
-  TGraph* cfall3 = new TGraph (maxn, num, falling3);
+  TGraph* cfall3 = new TGraph (limit, num, falling3);
   cfall3->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall3->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cfall3->SetLineColor(kBlue);
   cfall3->Draw("l");
-  TGraph* cmain3 = new TGraph (maxn, num, NfloorNchooseK3);
+  TGraph* cmain3 = new TGraph (limit, num, NfloorNchooseK3);
   cmain3->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cmain3->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cmain3->SetLineColor(kGreen);
   cmain3->Draw("l");
-  
+
   TLegend* legend3 = new TLegend(0.68,0.68,0.88,0.88);
   legend3->AddEntry(c3,"power","l");
   legend3->AddEntry(cmain,"NKFloor","l");
   legend3->AddEntry(cfall,"fall fac","l");
   legend3->SetTextSize(0.05);
   legend3->Draw();
-  c4->Print("comb_all3k6.png");
+  //c4->Print("comb_all3k6.png");
+  c4->Print(Form("comb_all3k6_ntrk%d.png",limit));
 
   c33->SetMinimum(1e-6);
   c4->SetLogy();
-  c4->Print("comb_all3k6_log.png");
+  //c4->Print("comb_all3k6_log.png");
+  c4->Print(Form("comb_all3k6_log_ntrk%d.png",limit));
 
   //--------------------------------------------------------------------------------------------------------------
-  TGraph* c34 = new TGraph (maxn, num, o4);
+  TGraph* c34 = new TGraph (limit, num, o4);
   c34->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   c34->SetLineStyle(3); // RB - added this to make it a bit easier to see under the fit
   c34->SetLineColor(kRed);
   c34->Draw("al");
   c34->SetMaximum(1);
   c34->SetMinimum(1e-6);
-  TGraph* cfall4 = new TGraph (maxn, num, falling4);
+  TGraph* cfall4 = new TGraph (limit, num, falling4);
   cfall4->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall4->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cfall4->SetLineColor(kBlue);
   cfall4->Draw("l");
-  TGraph* cmain4 = new TGraph (maxn, num, NfloorNchooseK4);
+  TGraph* cmain4 = new TGraph (limit, num, NfloorNchooseK4);
   cmain4->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cmain4->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
   cmain4->SetLineColor(kGreen);
   cmain4->Draw("l");
-  
+
   TLegend* legend4 = new TLegend(0.68,0.68,0.88,0.88);
   legend4->AddEntry(c3,"power","l");
   legend4->AddEntry(cmain,"NKFloor","l");
   legend4->AddEntry(cfall,"fall fac","l");
   legend4->SetTextSize(0.05);
   legend4->Draw();
-  c4->Print("comb_all3k8.png");
+  //c4->Print("comb_all3k8.png");
+  c4->Print(Form("comb_all3k8_ntrk%d.png",limit));
 
   c34->SetMinimum(1e-6);
   c4->SetLogy();
-  c4->Print("comb_all3k8_log.png");
+  //c4->Print("comb_all3k8_log.png");
+  c4->Print(Form("comb_all3k8_ntrk%dlog.png",limit));
 
 }//Fucntion3Gra
