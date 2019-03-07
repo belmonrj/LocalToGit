@@ -8,6 +8,7 @@ void doAll3(const int);
 
 void All3()
 {
+  gStyle->SetOptTitle(0); // gets rid of the "Graph" at the top of the graphs when you draw them on a TCanvas
   doAll3(25);
   doAll3(100);
   doAll3(200);
@@ -182,6 +183,7 @@ void doAll3(int limit)
   cmain->Draw("l");
 
   TLegend* legend = new TLegend(0.68,0.68,0.88,0.88);
+  legend->SetHeader("k = 2"); // copy this as needed
   legend->AddEntry(c3,"power","l");
   legend->AddEntry(cmain,"NKFloor","l");
   legend->AddEntry(cfall,"fall fac","l");
