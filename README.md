@@ -16,7 +16,7 @@ file to find Pythia, ROOT, and other libraries.
 5. **simple_particle.C** uses Pythia and ROOT to output a simulated particle collision, and histograms of its angular distibution, basic particle count, and some other useful statistics.
 
 
---useless b.s.-- Out of Date (Rest in Pieces):
+~~useless b.s.~~ Out of Date (Rest in Pieces):
 
 1.  **FallinFac1.C** is the is falling factorial function by itself.
 
