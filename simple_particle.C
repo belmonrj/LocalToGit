@@ -11,13 +11,14 @@
 
 #include "TROOT.h"
 #include "TH1D.h"
+#include "TProfile.h"
 #include "TCanvas.h"
 
 #include "Pythia8/Pythia.h"
 
 using namespace Pythia8;
 
-const double pi = 3.1415926; 
+const double pi = 3.1415926;
 
 int main()
 {
@@ -37,12 +38,14 @@ int main()
 
   TH1D* heta = new TH1D("heta", "eta distribution", 100, -3, 3); // this is correct
   TH1D* hPhi = new TH1D("hPhi", "phi distribution", 100, -pi, pi);//This should work but idk
-  
+
   //looped histograms
 
   TH1D* heta_vec = new TH1D("heta w/counter", "eta distribution", 100, -3, 3);//This should work but idk
   TH1D* hPhi_vec = new TH1D("hPhi w/counter", "phi distribution", 100, -pi, pi);
   // Begin event loop. Generate event. Skip if error. List first one.
+
+  TProfile* tp1f_c22mult = new TProfile("tp1f_c22mult","c22 vs mult",100,-0.5,499.5,-1e10,1e10);
 
   for (int iEvent = 0; iEvent < 10000; ++iEvent)
     {
@@ -64,45 +67,47 @@ int main()
         {
           // Particle short notation
           Particle& p = event[i];
-        
+
           // count all charged particles
           if (p.isFinal() && p.isCharged()) ++nCharged;
-         
+
           // Apply simple, particle level, cuts.
-          
+
           if ( p.isFinal() && p.isCharged() ) heta->Fill(p.eta()); // this is correct
           //eta filler
-          
+
           if ( p.isFinal() && p.isCharged() ) hPhi->Fill(p.phi());
           // fill hPhi
-           
+
           if(p.isFinal() && p.isCharged() && abs(p.eta()) < 2.5 && p.pT() > 0.5)
             {
               ++mult;
-              if ( p.isFinal() && p.isCharged() ) heta_vec->Fill(p.eta()); // this is correct
+              //if ( p.isFinal() && p.isCharged() ) heta_vec->Fill(p.eta()); // this is redundant
+              heta_vec->Fill(p.eta()); // this is correct
               //eta filler
-          
-              if ( p.isFinal() && p.isCharged() ) hPhi_vec->Fill(p.phi());
+
+              //if ( p.isFinal() && p.isCharged() ) hPhi_vec->Fill(p.phi());
+              hPhi_vec->Fill(p.phi());
               // fill hPhi
-          
+
               if(p.pT() > 1.0 && p.pT() < 3.0) parts.push_back(&p);
             }
-        
-          Q2x += cos(2*p.phi())
+
+          Q2x += cos(2*p.phi());
           // Qx
-          Q2y += sin(2*p.phi())  
+          Q2y += sin(2*p.phi());
           // Qy
-     
+
         } // end loop over particles
-          
-      c_n2 = ((Q2x * Q2y) - mult)/(mult*(mult-1)) 
-      // cumulant
 
-      // in a second loop over the selected particles, we'll do more stuff...
+      // calculate the cumulant
+      double c22 = ((Q2x * Q2y) - mult)/(mult*(mult-1));
+      // fill TProfile to compute average cumulant vs multiplicity
+      tp1f_c22mult->Fill(mult,c22);
 
+      // multiplicity distributions
       hmult->Fill( nCharged );
       hmult_selected->Fill( mult );
-      //hmult_eta->Fill( eta ); // this is extremely bad
     } // end of loop over events
 
   pythia.stat(); // tell about some statistics for this run
@@ -123,7 +128,7 @@ int main()
   hPhi->Draw();
   hPhi->SetMinimum(0);
   c1->Print("p8_phi.png");
-  
+
   heta_vec->Draw();
   heta_vec->SetMinimum(0); // root zero suppresses by default
   c1->Print("p8_eta_vec.png");
@@ -131,7 +136,10 @@ int main()
   hPhi_vec->Draw();
   hPhi_vec->SetMinimum(0);
   c1->Print("p8_phi_vec.png");
-  
+
+  tp1f_c22mult->Draw();
+  c1->Print("p8_c22mult.png");
+
 
   // we'll make a file to output some histograms...
 
