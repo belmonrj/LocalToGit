@@ -15,7 +15,7 @@ project.
 
 5. aidan.tex is a Beamer powerpoint type in latex, that compares the .png graphic outputs of the All3.C code.
 
-6. compie.bash is the compile code for our edits on simple_particle.C, as it requires pathway specifications in the bash
+6. compile.bash is the compile code for our edits on simple_particle.C, as it requires pathway specifications in the bash
 file to find Pythia, ROOT, and other libraries.
 
 7. nchoosekvar1var2.C is our first few attempts and edits on the combinatoric approximation, with the only caveat to date
