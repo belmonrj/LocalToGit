@@ -88,14 +88,14 @@ int main()
               if(p.pT() > 1.0 && p.pT() < 3.0) parts.push_back(&p);
             }
         
-          Q2x += cos(2*p.phi())
+          Q2x += cos(2*p.phi());
           // Qx
-          Q2y += sin(2*p.phi())  
+          Q2y += sin(2*p.phi());  
           // Qy
      
         } // end loop over particles
           
-      c_n2 = ((Q2x * Q2y) - mult)/(mult*(mult-1)) 
+      double c_n2 = ((Q2x * Q2y) - mult)/(mult*(mult-1)); 
       // cumulant
 
       // in a second loop over the selected particles, we'll do more stuff...
