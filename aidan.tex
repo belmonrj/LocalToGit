@@ -1,0 +1,370 @@
+\documentclass[aspectratio=169,compress,10pt]{beamer} %%%
+%\documentclass[compress,9pt]{beamer} %%%
+%\documentclass[compress,8pt]{beamer} %%%
+\usetheme{Warsaw} %%%
+
+
+
+\usepackage{changepage} % for adjustwidth
+\usepackage[percent]{overpic} % for placing text on top of a figure
+\usepackage{pict2e} % for help with overpic
+%\usepackage{epstopdf} % automatically converts eps figures to pdf format
+\usepackage{array}
+\usepackage{animate} % show animations with a series of png images
+\usepackage{eso-pic} % for placing figures anywhere on the slide...
+\usepackage{xspace} % for the collision system macros
+\usepackage[absolute,overlay]{textpos} % for placing text anywhere on slide (using textblock)
+\usepackage{framed,color} % package for special title slide
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amsbsy} % math symbols and the like
+%\usepackage{slashed} % Feynman slashed notatation
+\usepackage{tikz} % all manner of graphical stuff...
+\usepackage[framemethod=tikz]{mdframed} % package for special title slide
+%\usepackage{pdfpages} % include pdfs as a whole page
+
+
+\definecolor{shadecolor}{rgb}{0.5,0.5,0.5}
+\definecolor{olive}{rgb}{0,0.6,0}
+\definecolor{gold}{rgb}{0.8,0.6,0}
+\definecolor{copper}{rgb}{0.8,0.6,0.4}
+\definecolor{lightblue}{rgb}{0.3,0.3,1.0}
+\definecolor{royalblue}{rgb}{0.25,0.41,0.88}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.8}
+\definecolor{jpurple}{rgb}{0.8,0.0,0.8}
+
+
+
+\newcommand{\lenitem}[2][.7\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+
+%%% define my own headline
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt}{}%
+  \end{beamercolorbox}%
+  \vskip2pt%
+}
+
+%%% define my own footline
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+
+
+
+%%% define location for logo---0.9, 0.9 is upper right
+%\newcommand\LogoLocation[1]{\AtPageLowerLeft{\put(\LenToUnit{0.8\paperwidth},\LenToUnit{0.05\paperheight}){#1}}}
+
+%%% command to place logo slide-by-slide
+%\newcommand\addlogo{\AddToShipoutPictureFG*{\LogoLocation{{\includegraphics[width=3.0cm,keepaspectratio]{logos/phenixlogo.pdf}}}}}
+
+%%% command to add talk to specific location (nice to have them all in the same place on the slide)
+\newcommand\addtalk[1]{%
+ size, x, y
+\begin{textblock}{15}(0.5,2)%
+{#1}%
+\end{textblock}%
+}
+
+
+
+
+%%% set another another option
+\setbeamertemplate{navigation symbols}{} % this is the same as \beamertemplatenavigationsymbolsempty
+
+%%% add some package
+
+%makes footnote with symbol instead of number
+\long\def\symbolfootnote[#1]#2{\begingroup\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+
+%\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %% Creates a partial derivative
+%\newcommand{\totd}[2]{\frac{d #1}{d #2}} %% Creates a total derivative
+%\newcommand{\hau}{\mbox{$^3\text{He}$+Au}}
+%\newcommand{\dndeta}{dN_{ch}/d\eta}
+\newcommand{\bracket}[1]{\left< #1 \right>}
+\newcommand{\covariance}[2]{\left< #1 #2 \right> - \left< #1 \right>\left< #2 \right>}
+
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\lb}{\left<}
+\newcommand{\rb}{\right>}
+
+%\newcommand{\eps}{\varepsilon}
+\newcommand{\mean}[1]{\la #1 \ra}
+\newcommand{\dmean}[1]{\la\la #1 \ra\ra}
+\newcommand{\sump}{\sideset{}{'}\sum}
+
+\newcommand{\ee}{\mbox{$e^+$$+$$e^-$}\xspace}
+\newcommand{\ep}{\mbox{$e$$+$$p$}\xspace}
+\newcommand{\ea}{\mbox{$e$$+$$A$}\xspace}
+\newcommand{\pp}{\mbox{$p$$+$$p$}\xspace}
+\newcommand{\pa}{\mbox{$p$$+$$A$}\xspace}
+\newcommand{\pau}{\mbox{$p$$+$Au}\xspace}
+\newcommand{\pal}{\mbox{$p$$+$Al}\xspace}
+\newcommand{\ppb}{\mbox{$p$$+$Pb}\xspace}
+\newcommand{\dau}{\mbox{$d$$+$Au}\xspace}
+\newcommand{\heau}{\mbox{$^3$He$+$Au}\xspace}
+\newcommand{\pdau}{\mbox{$p/d$$+$Au}\xspace}
+\newcommand{\pdheau}{\mbox{$p/d/^3$He$+$Au}\xspace}
+\newcommand{\cucu}{\mbox{Cu$+$Cu}\xspace}
+\newcommand{\cuau}{\mbox{Cu$+$Au}\xspace}
+\newcommand{\auau}{\mbox{Au$+$Au}\xspace}
+\newcommand{\pbpb}{\mbox{Pb$+$Pb}\xspace}
+\newcommand{\uu}{\mbox{U$+$U}\xspace}
+
+\newcommand{\vt}{v_2}
+\newcommand{\vtt}{v_2\{2\}}
+\newcommand{\ctf}{c_2\{4\}}
+\newcommand{\vtf}{v_2\{4\}}
+\newcommand{\vts}{v_2\{6\}}
+\newcommand{\vte}{v_2\{8\}}
+\newcommand{\vtg}{v_2\{2,|\Delta\eta|>2\}}
+\newcommand{\vnt}{v_n\{2\}}
+\newcommand{\cnf}{c_n\{4\}}
+\newcommand{\vnf}{v_n\{4\}}
+\newcommand{\vns}{v_n\{6\}}
+\newcommand{\vne}{v_n\{8\}}
+\newcommand{\vng}{v_n\{2,|\Delta\eta|>2\}}
+
+\newcommand{\snn}{\sqrt{s_{_{NN}}}}
+
+\newcommand{\nfvtxt}{N_{\text{tracks}}^{\text{FVTX}}}
+
+\newcommand{\ncoll}{N_{\text{coll}}}
+\newcommand{\npart}{N_{\text{part}}}
+
+\newcommand{\attention}[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand{\talkname}[1]{\textcolor{darkblue}{\textbf{#1}}}
+\newcommand{\talktitle}[1]{``#1''}
+
+\newcommand{\nfvtxt}{N_{tracks}^{1<|\eta|<3}}
+\newcommand{\nfvtxt}{N_{tracks}^{FVTX}}
+
+
+\def \ppb {\mbox{p+Pb}\xspace} %%% Journal Requirement
+\def \pbpb {\mbox{Pb+Pb}\xspace} %%% Journal Requirement
+\def \pbpbE {\mbox{$^{208}$Pb+$^{208}$Pb}\xspace} %%% Journal Requirement
+\def \pbpbE {\mbox{$^{208}_{\phantom{0}82}$Pb+$^{208}_{\phantom{0}82}$Pb}\xspace} %%% Journal Requirement
+\def \uu {\mbox{U+U}\xspace} %%% Journal Requirement
+\def \pau {\mbox{p+Au}\xspace} %%% Journal Requirement
+\def \dau {\mbox{d+Au}\xspace} %%% Journal Requirement
+\def \auau {\mbox{Au+Au}\xspace} %%% Journal Requirement
+\def \auauE {\mbox{$^{197}$Au+$^{197}$Au}\xspace} %%% Journal Requirement
+\def \auauE {\mbox{$^{197}_{\phantom{0}79}$Au+$^{197}_{\phantom{0}79}$Au}\xspace} %%% Journal Requirement
+\def \cucu {\mbox{Cu+Cu}\xspace} %%% Journal Requirement
+\def \cuau {\mbox{Cu+Au}\xspace} %%% Journal Requirement
+\def \ruru {\mbox{$^{96}_{44}$Ru+$^{96}_{44}$Ru}\xspace} %%% Journal Requirement
+\def \zrzr {\mbox{$^{96}_{40}$Zr+$^{96}_{40}$Zr}\xspace} %%% Journal Requirement
+\def \pt {p_T} %%% Journal requirement
+\def \snn {\sqrt{s_{NN}}}
+
+\def \sgn {\mathop{\mathrm{sgn}}}
+
+\def \npart {N_{part}}
+\def \ncoll {N_{coll}}
+
+
+
+\title[\today~-~Slide \insertframenumber]{Combinatorics in heavy ions}
+\author[UNCG]{Aidan Lytle \\ University of North Carolina Greensboro}
+\date{\today}
+
+
+% remove line above footnotes...
+\renewcommand{\footnoterule}{
+  \kern -3pt
+  \hrule width \textwidth height 0pt
+  \kern 3pt
+}
+
+
+%\titlegraphic{\includegraphics[height=1.0cm]{logos/phenixlogo.pdf}\hfill\includegraphics[trim=0 30 0 30, clip=true, height=1.2cm]{logos/Boulder_FL.pdf}}
+%\titlegraphic{\hfill\includegraphics[trim=0 0 0 0, clip=true, height=1.2cm]{logos/uncg1.pdf}}
+%\titlegraphic{\includegraphics[trim=0 0 0 0, clip=true, height=1.2cm]{logo_brick2x2.jpg}\hfill\includegraphics[trim=0 0 0 0, clip=true, height=1.2cm]{logos/uncg1.pdf}}
+
+
+%%% - now begin document
+\begin{document}
+
+
+%%% - title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+
+
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k2.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4.png}
+\caption{Basic Cases: k = 2, k = 4}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k6.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k8.png}
+\caption{Case: k = 6, k = 8}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk200.png}
+\caption{Case: k = 4, n = 100, 200}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk500.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk1000.png}
+\caption{Case: k = 4, n = 500, 1000}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3_log.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_log.png}
+\caption{Case: k = 2 & 4, log}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_log.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_log.png}
+\caption{Case: k = 6, 8, log}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k2_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk100.png}
+\caption{Case: k = 2, 4}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk100.png}
+\caption{Case: k = 6 , 8}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_log_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_log_ntrk500.png}
+\caption{Case: k = 4 log, n = 100, 500}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_log_ntrk1000.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_log_ntrk200.png}
+\caption{Case: k = 4 log, n = 1000, 200}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_log_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_log_ntrk500.png}
+\caption{Case: k = 6 log, n = 100, 500}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_log_ntrk1000.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_log_ntrk200.png}
+\caption{Case: k = 6 log, n = 1000, 200}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk100log.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk500log.png}
+\caption{Case: k = 8 log, n = 100, 500}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk1000log.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk200log.png}
+\caption{Case: k = 8 log, n = 1000, 200}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk1000.png}
+\caption{Case: k = 4, n = 100, 1000}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk200.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k4_ntrk500.png}
+\caption{Case: k = 4, n = 200, 500}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_ntrk1000.png}
+\caption{Case: k = 6, n = 100, 1000}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_ntrk200.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k6_ntrk500.png}
+\caption{Case: k = 6, n = 200, 500}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk100.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk1000.png}
+\caption{Case: k = 8, n = 100, 1000}
+\end{adjustwidth}
+\end{frame}
+
+\begin{frame}{Plots}
+\begin{adjustwidth}{-2em}{-2em}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk200.png}
+\includegraphics[width=0.48\linewidth]{comb_all3k8_ntrk500.png}
+\caption{Case: k = 8, n = 200, 500}
+\end{adjustwidth}
+\end{frame}
+
+\end{document}
