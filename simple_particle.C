@@ -82,10 +82,12 @@ int main()
           if(p.isFinal() && p.isCharged() && abs(p.eta()) < 2.5 && p.pT() > 0.5)
             {
               ++mult;
-              if ( p.isFinal() && p.isCharged() ) heta_vec->Fill(p.eta()); // this is correct
+              //if ( p.isFinal() && p.isCharged() ) heta_vec->Fill(p.eta()); // this is redundant
+              heta_vec->Fill(p.eta()); // this is correct
               //eta filler
 
-              if ( p.isFinal() && p.isCharged() ) hPhi_vec->Fill(p.phi());
+              //if ( p.isFinal() && p.isCharged() ) hPhi_vec->Fill(p.phi());
+              hPhi_vec->Fill(p.phi());
               // fill hPhi
 
               if(p.pT() > 1.0 && p.pT() < 3.0) parts.push_back(&p);
@@ -98,15 +100,14 @@ int main()
 
         } // end loop over particles
 
+      // calculate the cumulant
       double c22 = ((Q2x * Q2y) - mult)/(mult*(mult-1));
+      // fill TProfile to compute average cumulant vs multiplicity
       tp1f_c22mult->Fill(mult,c22);
-      // cumulant
 
-      // in a second loop over the selected particles, we'll do more stuff...
-
+      // multiplicity distributions
       hmult->Fill( nCharged );
       hmult_selected->Fill( mult );
-      //hmult_eta->Fill( eta ); // this is extremely bad
     } // end of loop over events
 
   pythia.stat(); // tell about some statistics for this run
