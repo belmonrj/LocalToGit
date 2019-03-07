@@ -11,6 +11,7 @@
 
 #include "TROOT.h"
 #include "TH1D.h"
+#include "TProfile.h"
 #include "TCanvas.h"
 
 #include "Pythia8/Pythia.h"
@@ -43,6 +44,8 @@ int main()
   TH1D* heta_vec = new TH1D("heta w/counter", "eta distribution", 100, -3, 3);//This should work but idk
   TH1D* hPhi_vec = new TH1D("hPhi w/counter", "phi distribution", 100, -pi, pi);
   // Begin event loop. Generate event. Skip if error. List first one.
+
+  TProfile* tp1f_c22mult = new TProfile("tp1f_c22mult","c22 vs mult",100,-0.5,499.5,-1e10,1e10);
 
   for (int iEvent = 0; iEvent < 10000; ++iEvent)
     {
@@ -95,7 +98,8 @@ int main()
 
         } // end loop over particles
 
-      double c_n2 = ((Q2x * Q2y) - mult)/(mult*(mult-1));
+      double c22 = ((Q2x * Q2y) - mult)/(mult*(mult-1));
+      tp1f_c22mult->Fill(mult,c22);
       // cumulant
 
       // in a second loop over the selected particles, we'll do more stuff...
@@ -131,6 +135,9 @@ int main()
   hPhi_vec->Draw();
   hPhi_vec->SetMinimum(0);
   c1->Print("p8_phi_vec.png");
+
+  tp1f_c22mult->Draw();
+  c1->Print("p8_c22mult.png");
 
 
   // we'll make a file to output some histograms...
