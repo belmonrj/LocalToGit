@@ -171,7 +171,7 @@ void doAll3(int limit)
   c3->SetLineColor(kRed);
   c3->Draw("al");
   c3->SetMaximum(1);
-  c3->SetMinimum(1e-6);
+  c3->SetMinimum(1e-10);
   TGraph* cfall = new TGraph (limit, num, falling);
   cfall->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
@@ -201,7 +201,7 @@ void doAll3(int limit)
   c32->SetLineColor(kRed);
   c32->Draw("al");
   c32->SetMaximum(1);
-  c32->SetMinimum(1e-6);
+  c32->SetMinimum(1e-8);
   TGraph* cfall2 = new TGraph (limit, num, falling2);
   cfall2->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall2->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
@@ -223,7 +223,7 @@ void doAll3(int limit)
   //c4->Print("comb_all3k4.png");
   c4->Print(Form("comb_all3k4_ntrk%d.png",limit));
 
-  c32->SetMinimum(1e-6);
+  c32->SetMinimum(1e-10);
   c4->SetLogy();
   //c4->Print("comb_all3k4_log.png");
   c4->Print(Form("comb_all3k4_log_ntrk%d.png",limit));
@@ -237,7 +237,7 @@ void doAll3(int limit)
   c33->SetLineColor(kRed);
   c33->Draw("al");
   c33->SetMaximum(1);
-  c33->SetMinimum(1e-6);
+  c33->SetMinimum(1e-12);
   TGraph* cfall3 = new TGraph (limit, num, falling3);
   cfall3->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall3->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
@@ -259,7 +259,7 @@ void doAll3(int limit)
   //c4->Print("comb_all3k6.png");
   c4->Print(Form("comb_all3k6_ntrk%d.png",limit));
 
-  c33->SetMinimum(1e-6);
+  c33->SetMinimum(1e-12);
   c4->SetLogy();
   //c4->Print("comb_all3k6_log.png");
   c4->Print(Form("comb_all3k6_log_ntrk%d.png",limit));
@@ -271,7 +271,7 @@ void doAll3(int limit)
   c34->SetLineColor(kRed);
   c34->Draw("al");
   c34->SetMaximum(1);
-  c34->SetMinimum(1e-6);
+  c34->SetMinimum(1e-14);
   TGraph* cfall4 = new TGraph (limit, num, falling4);
   cfall4->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   cfall4->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit
@@ -293,7 +293,7 @@ void doAll3(int limit)
   //c4->Print("comb_all3k8.png");
   c4->Print(Form("comb_all3k8_ntrk%d.png",limit));
 
-  c34->SetMinimum(1e-6);
+  c34->SetMinimum(1e-12);
   c4->SetLogy();
   //c4->Print("comb_all3k8_log.png");
   c4->Print(Form("comb_all3k8_ntrk%dlog.png",limit));
