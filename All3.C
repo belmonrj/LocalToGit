@@ -9,6 +9,7 @@ void doAll3(const int);
 void All3()
 {
   gStyle->SetOptTitle(0); // gets rid of the "Graph" at the top of the graphs when you draw them on a TCanvas
+  doAll3(15);
   doAll3(25);
   doAll3(100);
   doAll3(200);
@@ -191,7 +192,9 @@ void doAll3(int limit)
   legend->Draw();
   //c4->Print("comb_all3k2.png");
   c4->Print(Form("comb_all3k2_ntrk%d.png",limit));
+
   //---------------------------------------------------------------------------------------------------------
+
   TGraph* c32 = new TGraph (limit, num, o2);
   c32->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit
   c32->SetLineStyle(3); // RB - added this to make it a bit easier to see under the fit
@@ -211,6 +214,7 @@ void doAll3(int limit)
   cmain2->Draw("l");
 
   TLegend* legend2 = new TLegend(0.68,0.68,0.88,0.88);
+  legend2->SetHeader("k = 4"); // copy this as needed
   legend2->AddEntry(c3,"power","l");
   legend2->AddEntry(cmain,"NKFloor","l");
   legend2->AddEntry(cfall,"fall fac","l");
@@ -246,6 +250,7 @@ void doAll3(int limit)
   cmain3->Draw("l");
 
   TLegend* legend3 = new TLegend(0.68,0.68,0.88,0.88);
+  legend3->SetHeader("k = 6"); // copy this as needed
   legend3->AddEntry(c3,"power","l");
   legend3->AddEntry(cmain,"NKFloor","l");
   legend3->AddEntry(cfall,"fall fac","l");
@@ -279,6 +284,7 @@ void doAll3(int limit)
   cmain4->Draw("l");
 
   TLegend* legend4 = new TLegend(0.68,0.68,0.88,0.88);
+  legend4->SetHeader("k = 8"); // copy this as needed
   legend4->AddEntry(c3,"power","l");
   legend4->AddEntry(cmain,"NKFloor","l");
   legend4->AddEntry(cfall,"fall fac","l");
