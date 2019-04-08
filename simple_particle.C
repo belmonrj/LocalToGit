@@ -31,9 +31,6 @@ int main()
   pythia.readString("PhaseSpace:pTHatMin = 20.");
   pythia.init();
 
-  //Tfile for I/O stuff
-  TFile* HistFile = new TFile("FileOne.root","recreate");
-
   // --- histograms
   TH1D* hmult = new TH1D("hmult","charged multiplicity", 100, -0.5, 499.5);
   TH1D* hmult_selected = new TH1D("hmult_selected","charged multiplicity for selected particles", 100, -0.5, 499.5);
@@ -44,8 +41,12 @@ int main()
 
   //looped histograms
 
-  TH1D* heta_vec = new TH1D("heta w/counter", "eta distribution", 100, -3, 3);//This should work but idk
-  TH1D* hPhi_vec = new TH1D("hPhi w/counter", "phi distribution", 100, -pi, pi);
+  // --- the first argument in the constructor is the object name
+  // --- it must not have spaces, special characters, etc.
+  // TH1D* heta_vec = new TH1D("heta w/counter", "eta distribution", 100, -3, 3);//This should work but idk
+  // TH1D* hPhi_vec = new TH1D("hPhi w/counter", "phi distribution", 100, -pi, pi);
+  TH1D* heta_vec = new TH1D("heta_vec", "eta distribution", 100, -3, 3);
+  TH1D* hPhi_vec = new TH1D("hPhi_vec", "phi distribution", 100, -pi, pi);
   // Begin event loop. Generate event. Skip if error. List first one.
 
   TProfile* tp1f_c22mult = new TProfile("tp1f_c22mult","c22 vs mult",100,-0.5,499.5,-1e10,1e10);
@@ -143,6 +144,14 @@ int main()
   tp1f_c22mult->Draw();
   c1->Print("p8_c22mult.png");
 
+  //Tfile for I/O stuff
+  TFile* HistFile = new TFile("FileOne.root","recreate");
+  HistFile->cd();
+  heta->Write();
+  heta_vec->Write();
+  hPhi->Write();
+  hPhi_vec->Write();
+  tp1f_c22mult->Write();
   HistFile->Close();
 
   // we'll make a file to output some histograms...
