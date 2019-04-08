@@ -13,6 +13,7 @@
 #include "TH1D.h"
 #include "TProfile.h"
 #include "TCanvas.h"
+#include "TFile.h"
 
 #include "Pythia8/Pythia.h"
 
@@ -30,6 +31,8 @@ int main()
   pythia.readString("PhaseSpace:pTHatMin = 20.");
   pythia.init();
 
+  //Tfile for I/O stuff
+  TFile* HistFile = new TFile("FileOne.root","recreate");
 
   // --- histograms
   TH1D* hmult = new TH1D("hmult","charged multiplicity", 100, -0.5, 499.5);
@@ -140,6 +143,7 @@ int main()
   tp1f_c22mult->Draw();
   c1->Print("p8_c22mult.png");
 
+  HistFile->Close();
 
   // we'll make a file to output some histograms...
 
