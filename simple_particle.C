@@ -22,6 +22,15 @@ using namespace Pythia8;
 
 const double pi = 3.1415926;
 
+// Stuff for cumulants greater than 2
+static const int maxCorrelator = 12; // Somewhat abusing the setup as it is...
+static const int maxHarmonic = 10; // Need to assess on case-by-case basis, but this gets you v2{8} and v3{6}
+static const int maxPower = 9;
+TComplex Qvector[maxHarmonic][maxPower]; // All needed Q-vector components
+TComplex Q(int, int);
+TComplex Recursion(int, int*);
+TComplex Recursion(int, int*, int, int);
+
 int main()
 {
 
@@ -31,17 +40,6 @@ int main()
   pythia.readString("HardQCD:all = on");
   pythia.readString("PhaseSpace:pTHatMin = 20.");
   pythia.init();
-
-  // Stuff for cumulants greater than 2
-  static const int maxCorrelator = 12; // Somewhat abusing the setup as it is...
-  static const int maxHarmonic = 10; // Need to assess on case-by-case basis, but this gets you v2{8} and v3{6}
-  static const int maxPower = 9;
-  TComplex Qvector[maxHarmonic][maxPower]; // All needed Q-vector components
-  TComplex Q(int, int);
-  TComplex Recursion(int, int*);
-  TComplex Recursion(int, int*, int, int);
-
-
 
   // --- histograms
   TH1D* hmult = new TH1D("hmult","charged multiplicity", 100, -0.5, 499.5);
@@ -238,12 +236,12 @@ int main()
 
 }
 // --- from generic forumulas ----------------------------------------------------
-Recursion(int n, int* harmonic)
+TComplex Recursion(int n, int* harmonic)
 {
   return Recursion(n,harmonic,1,0); // 1 and 0 are defaults from above
 }
 
-Recursion(int n, int* harmonic, int mult, int skip)
+TComplex Recursion(int n, int* harmonic, int mult, int skip)
 {
   // Calculate multi-particle correlators by using recursion (an improved faster version) originally developed by
   // Kristjan Gulbrandsen (gulbrand@nbi.dk).
