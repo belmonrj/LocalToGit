@@ -277,3 +277,10 @@ TComplex Recursion(int n, int* harmonic, int mult, int skip)
   return c-double(mult)*c2;
 
 }
+TComplex Q(int n, int p)
+{
+  // Using the fact that Q{-n,p} = Q{n,p}^*.
+  if(n>=0){return Qvector[n][p];}
+  return TComplex::Conjugate(Qvector[-n][p]);
+} // TComplex Q(int n, int p)
+// ------------------------
