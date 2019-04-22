@@ -62,17 +62,17 @@ int main()
   // Particle correlation as a function of charged multiplicity.
 
   TProfile* tp1f_c22mult = new TProfile("tp1f_c22mult","c22 vs mult",100,-0.5,499.5,-1e10,1e10);
-  TProfile* tp1f_c24mult = new TProfile("tp1f_c24mult","c24 vs mult",100,-0.5,499.5,-1e10,1e10);
-  TProfile* tp1f_c26mult = new TProfile("tp1f_c26mult","c26 vs mult",100,-0.5,499.5,-1e10,1e10);
-  TProfile* tp1f_c28mult = new TProfile("tp1f_c28mult","c28 vs mult",100,-0.5,499.5,-1e10,1e10);
+  // TProfile* tp1f_c24mult = new TProfile("tp1f_c24mult","c24 vs mult",100,-0.5,499.5,-1e10,1e10);
+  // TProfile* tp1f_c26mult = new TProfile("tp1f_c26mult","c26 vs mult",100,-0.5,499.5,-1e10,1e10);
+  // TProfile* tp1f_c28mult = new TProfile("tp1f_c28mult","c28 vs mult",100,-0.5,499.5,-1e10,1e10);
   //TComplex* BoulderCumulants = new TComplex(//stuff here to fill defintion of TComplex
-  TProfile* nfvtxt_recursion[2][maxCorrelator];
+  TProfile* hmult_recursion[2][maxCorrelator];
 
   for ( int cs = 0; cs < 2; ++cs )
     {
       for(int c = 0; c < maxCorrelator; ++c )
         {
-          nfvtxt_recursion[cs][c] = new TProfile(Form("nfvtxt_recursion_%d_%d",cs,c),"",700,-0.5,699.5,-1.1,1.1);
+          hmult_recursion[cs][c] = new TProfile(Form("hmult_recursion_%d_%d",cs,c),"",700,-0.5,699.5,-1.1,1.1);
         }
     }
 
@@ -146,37 +146,37 @@ int main()
       int harmonics_Two_Num[2] = {2,-2}; // 2, -2
       int harmonics_Two_Den[2] = {0,0}; // recursion gives right combinatorics
       TComplex twoRecursion = Recursion(2,harmonics_Two_Num)/Recursion(2,harmonics_Two_Den).Re();
-      double spwTwoRecursion = Recursion(2,harmonics_Two_Den).Re();
+      //double spwTwoRecursion = Recursion(2,harmonics_Two_Den).Re();
       double wTwoRecursion = 1.0;
-      nfvtxt_recursion[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion); // <<cos(h1*phi1+h2*phi2)>>
-      nfvtxt_recursion[1][0]->Fill(mult,twoRecursion.Im(),wTwoRecursion); // <<sin(h1*phi1+h2*phi2)>>
+      hmult_recursion[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion); // <<cos(h1*phi1+h2*phi2)>>
+      hmult_recursion[1][0]->Fill(mult,twoRecursion.Im(),wTwoRecursion); // <<sin(h1*phi1+h2*phi2)>>
       //  4-p correlations:
       //cout<<” => Calculating 4-p correlations (using recursion)...       \r”<<flush;
       int harmonics_Four_Num[4] = {2,2,-2,-2};
       int harmonics_Four_Den[4] = {0,0,0,0}; // recursion gives right combinatorics
       TComplex fourRecursion = Recursion(4,harmonics_Four_Num)/Recursion(4,harmonics_Four_Den).Re();
-      double spwFourRecursion = Recursion(4,harmonics_Four_Den).Re();
+      //double spwFourRecursion = Recursion(4,harmonics_Four_Den).Re();
       double wFourRecursion = 1.0;
-      nfvtxt_recursion[0][2]->Fill(mult,fourRecursion.Re(),wFourRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
-      nfvtxt_recursion[1][2]->Fill(mult,fourRecursion.Im(),wFourRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
+      hmult_recursion[0][2]->Fill(mult,fourRecursion.Re(),wFourRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
+      hmult_recursion[1][2]->Fill(mult,fourRecursion.Im(),wFourRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
       //  6-p correlations:
       //cout<<” => Calculating 6-p correlations (using recursion)...       \r”<<flush;
       int harmonics_Six_Num[6] = {2,2,2,-2,-2,-2};
       int harmonics_Six_Den[6] = {0,0,0,0,0,0};
       TComplex sixRecursion = Recursion(6,harmonics_Six_Num)/Recursion(6,harmonics_Six_Den).Re();
-      double spwSixRecursion = Recursion(6,harmonics_Six_Den).Re();
+      //double spwSixRecursion = Recursion(6,harmonics_Six_Den).Re();
       double wSixRecursion = 1.0;
-      nfvtxt_recursion[0][4]->Fill(mult,sixRecursion.Re(),wSixRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
-      nfvtxt_recursion[1][4]->Fill(mult,sixRecursion.Im(),wSixRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
+      hmult_recursion[0][4]->Fill(mult,sixRecursion.Re(),wSixRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
+      hmult_recursion[1][4]->Fill(mult,sixRecursion.Im(),wSixRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
       //  8-p correlations:
       //cout<<” => Calculating 8-p correlations (using recursion)...       \r”<<flush;
       int harmonics_Eight_Num[8] = {2,2,2,2,-2,-2,-2,-2};
       int harmonics_Eight_Den[8] = {0,0,0,0,0,0,0,0};
       TComplex eightRecursion = Recursion(8,harmonics_Eight_Num)/Recursion(8,harmonics_Eight_Den).Re();
-      double spwEightRecursion = Recursion(8,harmonics_Eight_Den).Re();
+      //double spwEightRecursion = Recursion(8,harmonics_Eight_Den).Re();
       double wEightRecursion = 1.0;
-      nfvtxt_recursion[0][6]->Fill(mult,eightRecursion.Re(),wEightRecursion);
-      nfvtxt_recursion[1][6]->Fill(mult,eightRecursion.Im(),wEightRecursion);
+      hmult_recursion[0][6]->Fill(mult,eightRecursion.Re(),wEightRecursion);
+      hmult_recursion[1][6]->Fill(mult,eightRecursion.Im(),wEightRecursion);
       ////End of ripped codes from 'Boulder' codes
 
 
@@ -228,6 +228,14 @@ int main()
   hPhi->Write();
   hPhi_vec->Write();
   tp1f_c22mult->Write();
+  // --- write the recursion histograms
+  for ( int cs = 0; cs < 2; ++cs )
+    {
+      for(int c = 0; c < maxCorrelator; ++c )
+        {
+          hmult_recursion[cs][c]->Write();
+        }
+    }
   HistFile->Close();
 
   // we'll make a file to output some histograms...
