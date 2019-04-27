@@ -184,7 +184,7 @@ int main()
           for(int p=0;p<maxPower;p++)
             {
               //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
-              Qvector[h][p] += TComplex(wPhiToPowerP*TMath::Cos(h*dPhi),wPhiToPowerP*TMath::Sin(h*dPhi));
+              Qvector[h][p] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
             } //  for(int p=0;p<maxPower;p++)
         } // for(int h=0;h<maxHarmonic;h++)
 
