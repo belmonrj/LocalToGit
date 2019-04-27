@@ -140,11 +140,11 @@ int main()
 
       for(int h=0;h<maxHarmonic;h++)
         {
-          for(int p=0;p<maxPower;p++)
+          for(int w=0;w<maxPower;w++)
             {
               //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
-              Qvector[h][p] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
-            } //  for(int p=0;p<maxPower;p++)
+              Qvector[h][w] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
+            } //  for(int w=0;w<maxPower;w++)
         } // for(int h=0;h<maxHarmonic;h++)
 
         } // end loop over particles
@@ -314,9 +314,9 @@ TComplex Q(int n, int p)
   // --- for the generic formulas ---------
   for(int h=0;h<maxHarmonic;h++)
     {
-      for(int p=0;p<maxPower;p++)
+      for(int w=0;w<maxPower;w++)
         {
-          Qvector[h][p] = TComplex(0.,0.);
+          Qvector[h][w] = TComplex(0.,0.);
         } //  for(int p=0;p<maxPower;p++)
     } // for(int h=0;h<maxHarmonic;h++)
   // --------------------------------------
