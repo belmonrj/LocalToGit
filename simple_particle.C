@@ -136,6 +136,16 @@ int main()
           // Qx
           Q2y += sin(2*p.phi());
           // Qy
+          
+
+      for(int h=0;h<maxHarmonic;h++)
+        {
+          for(int p=0;p<maxPower;p++)
+            {
+              //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
+              Qvector[h][p] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
+            } //  for(int p=0;p<maxPower;p++)
+        } // for(int h=0;h<maxHarmonic;h++)
 
         } // end loop over particles
 
@@ -178,15 +188,6 @@ int main()
       hmult_recursion[0][6]->Fill(mult,eightRecursion.Re(),wEightRecursion);
       hmult_recursion[1][6]->Fill(mult,eightRecursion.Im(),wEightRecursion);
       ////End of ripped codes from 'Boulder' codes
-
-      for(int h=0;h<maxHarmonic;h++)
-        {
-          for(int p=0;p<maxPower;p++)
-            {
-              //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
-              Qvector[h][p] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
-            } //  for(int p=0;p<maxPower;p++)
-        } // for(int h=0;h<maxHarmonic;h++)
 
 
       // calculate the 2 cumulant
