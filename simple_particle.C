@@ -86,7 +86,7 @@ int main()
   //Main event loop
   ////
 
-  for (int iEvent = 0; iEvent < 10000; ++iEvent)
+  for (int iEvent = 0; iEvent < 1000; ++iEvent)
     {
 
       if (!pythia.next()) continue;
@@ -179,6 +179,15 @@ int main()
       hmult_recursion[1][6]->Fill(mult,eightRecursion.Im(),wEightRecursion);
       ////End of ripped codes from 'Boulder' codes
 
+      for(int h=0;h<maxHarmonic;h++)
+        {
+          for(int p=0;p<maxPower;p++)
+            {
+              //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
+              Qvector[h][p] += TComplex(wPhiToPowerP*TMath::Cos(h*dPhi),wPhiToPowerP*TMath::Sin(h*dPhi));
+            } //  for(int p=0;p<maxPower;p++)
+        } // for(int h=0;h<maxHarmonic;h++)
+
 
       // calculate the 2 cumulant
       double c22 = ((Q2x * Q2y) - mult)/(mult*(mult-1));
@@ -199,7 +208,7 @@ int main()
 
   hmult_selected->Draw();
   c1->Print("p8_hmult_sel.png");
-
+  
   // fixed name in accordance with above
   heta->Draw();
   heta->SetMinimum(0); // root zero suppresses by default
@@ -219,6 +228,20 @@ int main()
 
   tp1f_c22mult->Draw();
   c1->Print("p8_c22mult.png");
+  
+
+
+
+
+
+
+
+  //////////Code added to test drawing of the recursion files
+  hmult_recursion[0][6]->Draw();
+  c1->Print("hmult_recursion_test.png");
+  //////////////
+
+
 
   //Tfile for I/O stuff
   TFile* HistFile = new TFile("FileOne.root","recreate");
@@ -287,6 +310,15 @@ TComplex Recursion(int n, int* harmonic, int mult, int skip)
 }
 TComplex Q(int n, int p)
 {
+  // --- for the generic formulas ---------
+  for(int h=0;h<maxHarmonic;h++)
+    {
+      for(int p=0;p<maxPower;p++)
+        {
+          Qvector[h][p] = TComplex(0.,0.);
+        } //  for(int p=0;p<maxPower;p++)
+    } // for(int h=0;h<maxHarmonic;h++)
+  // --------------------------------------
   // Using the fact that Q{-n,p} = Q{n,p}^*.
   if(n>=0){return Qvector[n][p];}
   return TComplex::Conjugate(Qvector[-n][p]);
