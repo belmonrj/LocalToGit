@@ -321,13 +321,7 @@ TComplex Recursion(int n, int* harmonic, int mult, int skip)
 TComplex Q(int n, int p)
 {
   // --- for the generic formulas ---------
-  for(int h=0;h<maxHarmonic;h++)
-    {
-      for(int w=0;w<maxPower;w++)
-        {
-          Qvector[h][w] = TComplex(0.,0.);
-        } //  for(int p=0;p<maxPower;p++)
-    } // for(int h=0;h<maxHarmonic;h++)
+
   // --------------------------------------
   // Using the fact that Q{-n,p} = Q{n,p}^*.
   if(n>=0){return Qvector[n][p];}
