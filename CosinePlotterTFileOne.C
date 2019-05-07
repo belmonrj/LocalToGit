@@ -1,7 +1,14 @@
 // Plotter to test combinatorics directly against predicted collision geometries/cumulants
-
 void CosinePlotterTFileOne()
 {
+
+  //histogram->Fit(function,“R”);
+  TF1* N2 = new TF1("N2","1/(x-1)",2,500);
+  TF1* N4 = new TF1("N4","6/((x-1)*(x-2)*(x-3))",4,500);
+  //TF1* N6 = new TF1("N6","12/((x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6))",6,500);
+  //TF1* N8 = new TF1("N8","
+
+  // Sample class for TF1 --> TF1* function = new TF1(“function”,“1/(x-1)“,2,500)
 
   TFile* file = TFile::Open("FileOne.root");
 
