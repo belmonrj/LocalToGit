@@ -86,7 +86,7 @@ int main()
   //Main event loop
   ////
 
-  for (int iEvent = 0; iEvent < 1000; ++iEvent)
+  for (int iEvent = 0; iEvent < 500; ++iEvent)
     {
       // --- for the generic formulas ---------
       for(int h=0;h<maxHarmonic;h++)
@@ -145,7 +145,7 @@ int main()
           // Qx
           Q2y += sin(2*p.phi());
           // Qy
-          
+
 
           for(int h=0;h<maxHarmonic;h++)
             {
@@ -158,8 +158,8 @@ int main()
 
         } // end loop over particles
 
-      ////Defining usage and objects necessary for Recursion and 
-      ////higher cumulants after particle loop, but over 
+      ////Defining usage and objects necessary for Recursion and
+      ////higher cumulants after particle loop, but over
       ////event loop
 
       int harmonics_Two_Num[2] = {2,-2}; // 2, -2
@@ -179,7 +179,7 @@ int main()
       hmult_recursion[0][2]->Fill(mult,fourRecursion.Re(),wFourRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
       hmult_recursion[1][2]->Fill(mult,fourRecursion.Im(),wFourRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
       //  6-p correlations:
-      //cout<<” => Calculating 6-p correlations (using recursion)...       \r”<<flush;
+      //cout<<” => Calculating 6-p correlations (using recursion)...       \r"<<flush;
       int harmonics_Six_Num[6] = {2,2,2,-2,-2,-2};
       int harmonics_Six_Den[6] = {0,0,0,0,0,0};
       TComplex sixRecursion = Recursion(6,harmonics_Six_Num)/Recursion(6,harmonics_Six_Den).Re();
@@ -188,7 +188,7 @@ int main()
       hmult_recursion[0][4]->Fill(mult,sixRecursion.Re(),wSixRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
       hmult_recursion[1][4]->Fill(mult,sixRecursion.Im(),wSixRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
       //  8-p correlations:
-      //cout<<” => Calculating 8-p correlations (using recursion)...       \r”<<flush;
+      //cout<<” => Calculating 8-p correlations (using recursion)...       \r"<<flush;
       int harmonics_Eight_Num[8] = {2,2,2,2,-2,-2,-2,-2};
       int harmonics_Eight_Den[8] = {0,0,0,0,0,0,0,0};
       TComplex eightRecursion = Recursion(8,harmonics_Eight_Num)/Recursion(8,harmonics_Eight_Den).Re();
@@ -200,7 +200,7 @@ int main()
 
 
       // calculate the 2 cumulant
-      double c22 = ((Q2x * Q2y) - mult)/(mult*(mult-1));
+      double c22 = (((Q2x*Q2x) + (Q2y*Q2y)) - mult)/(mult*(mult-1));
       // fill TProfile to compute average cumulant vs multiplicity
       tp1f_c22mult->Fill(mult,c22);
 
@@ -218,7 +218,7 @@ int main()
 
   hmult_selected->Draw();
   c1->Print("p8_hmult_sel.png");
-  
+
   // fixed name in accordance with above
   heta->Draw();
   heta->SetMinimum(0); // root zero suppresses by default
@@ -238,7 +238,6 @@ int main()
 
   tp1f_c22mult->Draw();
   c1->Print("p8_c22mult.png");
-  
 
 
 
