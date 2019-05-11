@@ -13,9 +13,9 @@ void CumulantFromCK()
   cout << hm_2 << endl;
   TH1D* hm_2_new = hm_2->ProjectionX("hm_2_new", "B");
   TH1D* H4 = hm_2_new; // Copy for math operations
-  H2->Multiply(H2);
-  H2->Scale(2.0);
-  H4->Add(H2,-1.0);
+  H2->Multiply(H2); // H2 -> (H2)^2
+  H2->Scale(2.0); // H2 -> 2(H2)
+  H4->Add(H2,-1.0); // H4 -> H4 - 2(H2^2)
   
     //  TProfile* hm_4 = (TProfile*)file->Get("hmult_recursion_0_4");
     //  cout << hm_4 << endl;
