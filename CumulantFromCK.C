@@ -11,7 +11,6 @@ void CumulantFromCK()
   TH1D* H2_1 = (TH1D*)hm_2_new->Clone("H2_1"); // Copy for math operations for <<6>>
   TH1D* H2_2 = (TH1D*)hm_2_new->Clone("H2_2"); // Copy for math operations for <<8>>
 
-
   //Definitions of <<4>>
   TProfile* hm_2 = (TProfile*)file->Get("hmult_recursion_0_2");
   cout << hm_2 << endl;
@@ -83,6 +82,72 @@ void CumulantFromCK()
   delete H6_0;
   // Garbage collection is important to prevent memory leaks, and I just made a whole shitload
   // of extra memory addresses up there, so I had to fix it
+
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Finding v{n} from c{n}
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Useable cumulants: hm_2_new, hm_4_new, hm_6_new, hm_8_new
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  //v{2}
+  TH1D* vm_2 = new TH1D;
+  TH1D* vm_4 = new TH1D;
+  TH1D* vm_6 = new TH1D;
+  TH1D* vm_8 = new TH1D;
+
+  //lengths of old histograms
+  int t = 500; // I need to find a way to get the length of a histogram. ->GetBin(hist) didn't work as expected
+  int u = 500;
+  int v = 500;
+  int w = 500;
+
+  int i = 0; // for looping
+
+
+
+  //loop over the old histogram to fill the new one
+
+  // v{2}
+  for(i=1; i<=t; ++i){
+    double val = hm_2_new->GetBinContent(i);
+    double op = pow((val), (1/2));
+    vm_2->SetBinContent(i, op); // arguments are an integer and a double
+  }// v{2}
+
+  //v{4}
+  for(i=1; i<=u; ++i){
+    double val = hm_4_new->GetBinContent(i);
+    double op = pow((-val), (1/4));
+    vm_4->SetBinContent(i, op);
+  }// v{4} 
+
+  // v{6}
+  for(i=1; i<=v; ++i){
+    double val = hm_6_new->GetBinContent(i);
+    double op = pow((val/4), (1/6));
+    vm_6->SetBinContent(i, op);
+  }// v{6}
+
+  //v{8}
+  for(i=1; i<=w; ++i){
+    double val = hm_8_new->GetBinContent(i);
+    double op = pow((-val/33), (1/8));
+    vm_8->SetBinContent(i, op);
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   return;
 
