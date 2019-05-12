@@ -93,16 +93,16 @@ void CumulantFromCK()
 
 
   //v{2}
-  TH1D* vm_2 = new TH1D;
-  TH1D* vm_4 = new TH1D;
-  TH1D* vm_6 = new TH1D;
-  TH1D* vm_8 = new TH1D;
+  TH1D* vm_2 = (TH1D*)hm_2_new->Clone("vm_2"); // I found out how to loop over the length below
+  TH1D* vm_4 = (TH1D*)hm_4_new->Clone("vm_4");
+  TH1D* vm_6 = (TH1D*)hm_6_new->Clone("vm_6");
+  TH1D* vm_8 = (TH1D*)hm_8_new->Clone("vm_8");
 
   //lengths of old histograms
-  int t = 500; // I need to find a way to get the length of a histogram. ->GetBin(hist) didn't work as expected
-  int u = 500;
-  int v = 500;
-  int w = 500;
+  int t = (vm_2->GetSize()) - 2; // h1->GetSize() inherits from TArray
+  int u = (vm_4->GetSize()) - 2; // Thank you Rene Brun, I would never have found this
+  int v = (vm_6->GetSize()) - 2;
+  int w = (vm_8->GetSize()) - 2;
 
   int i = 0; // for looping
 
@@ -140,23 +140,6 @@ void CumulantFromCK()
 
 
 
-
-
-
-
-
-
-
-
-
   return;
 
-  //c{2} = <2>
-  //c{4} = <4> - 2*<2>^2
-
 }
-
-//<2> hmult_recursion_0_0
-//hmult_recursion_0_2 is <4>
-//hmult_recursion_0_4 is <6>
-//hmult_recursion_0_6 is <8>
