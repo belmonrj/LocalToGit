@@ -11,7 +11,6 @@ void CumulantFromCK()
   TH1D* H2_1 = (TH1D*)hm_2_new->Clone("H2_1"); // Copy for math operations for <<6>>
   TH1D* H2_2 = (TH1D*)hm_2_new->Clone("H2_2"); // Copy for math operations for <<8>>
 
-
   //Definitions of <<4>>
   TProfile* hm_2 = (TProfile*)file->Get("hmult_recursion_0_2");
   cout << hm_2 << endl;
@@ -84,14 +83,63 @@ void CumulantFromCK()
   // Garbage collection is important to prevent memory leaks, and I just made a whole shitload
   // of extra memory addresses up there, so I had to fix it
 
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Finding v{n} from c{n}
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Useable cumulants: hm_2_new, hm_4_new, hm_6_new, hm_8_new
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  //v{2}
+  TH1D* vm_2 = (TH1D*)hm_2_new->Clone("vm_2"); // I found out how to loop over the length below
+  TH1D* vm_4 = (TH1D*)hm_4_new->Clone("vm_4");
+  TH1D* vm_6 = (TH1D*)hm_6_new->Clone("vm_6");
+  TH1D* vm_8 = (TH1D*)hm_8_new->Clone("vm_8");
+
+  //lengths of old histograms
+  int t = (vm_2->GetSize()) - 2; // h1->GetSize() inherits from TArray
+  int u = (vm_4->GetSize()) - 2; // Thank you Rene Brun, I would never have found this
+  int v = (vm_6->GetSize()) - 2;
+  int w = (vm_8->GetSize()) - 2;
+
+  int i = 0; // for looping
+
+
+
+  //loop over the old histogram to fill the new one
+
+  // v{2}
+  for(i=1; i<=t; ++i){
+    double val = hm_2_new->GetBinContent(i);
+    double op = pow((val), (1/2));
+    vm_2->SetBinContent(i, op); // arguments are an integer and a double
+  }// v{2}
+
+  //v{4}
+  for(i=1; i<=u; ++i){
+    double val = hm_4_new->GetBinContent(i);
+    double op = pow((-val), (1/4));
+    vm_4->SetBinContent(i, op);
+  }// v{4} 
+
+  // v{6}
+  for(i=1; i<=v; ++i){
+    double val = hm_6_new->GetBinContent(i);
+    double op = pow((val/4), (1/6));
+    vm_6->SetBinContent(i, op);
+  }// v{6}
+
+  //v{8}
+  for(i=1; i<=w; ++i){
+    double val = hm_8_new->GetBinContent(i);
+    double op = pow((-val/33), (1/8));
+    vm_8->SetBinContent(i, op);
+  }
+
+
+
   return;
 
-  //c{2} = <2>
-  //c{4} = <4> - 2*<2>^2
-
 }
-
-//<2> hmult_recursion_0_0
-//hmult_recursion_0_2 is <4>
-//hmult_recursion_0_4 is <6>
-//hmult_recursion_0_6 is <8>
