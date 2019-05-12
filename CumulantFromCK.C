@@ -7,18 +7,18 @@ void CumulantFromCK()
   TProfile* hm_0 = (TProfile*)file->Get("hmult_recursion_0_0");
   cout << hm_0 << endl;
   TH1D* hm_2_new = hm_0->ProjectionX("hm_0_new", "B");
-  TH1D* H2_0 = hm_2_new; // Copy for math operations for <<4>>
-  TH1D* H2_1 = hm_2_new; // Copy for math operations for <<6>>
-  TH1D* H2_2 = hm_2_new; // Copy for math operations for <<8>>
+  TH1D* H2_0 = hm_2_new->Clone("H2_0"); // Copy for math operations for <<4>>
+  TH1D* H2_1 = hm_2_new->Clone("H2_1"); // Copy for math operations for <<6>>
+  TH1D* H2_2 = hm_2_new->Clone("H2_2"); // Copy for math operations for <<8>>
 
 
   //Definitions of <<4>>
   TProfile* hm_2 = (TProfile*)file->Get("hmult_recursion_0_2");
   cout << hm_2 << endl;
   TH1D* hm_4_new = hm_2->ProjectionX("hm_2_new", "B");
-  TH1D* H4_0 = hm_4_new; // Copy for math operations for <<6>>
-  TH1D* H4_1 = hm_4_new; // Copy for math operations for <<8>>
-  TH1D* H4_2 = hm_4_new; // Copy for math operations for <<8>> #2
+  TH1D* H4_0 = hm_4_new->Clone("H4_0"); // Copy for math operations for <<6>>
+  TH1D* H4_1 = hm_4_new->Clone("H4_1"); // Copy for math operations for <<8>>
+  TH1D* H4_2 = hm_4_new->Clone("H4_2"); // Copy for math operations for <<8>> #2
   //Math on <<4>>
   H2_0->Multiply(H2_0); // H2 -> (H2)^2
   H2_0->Scale(2.0); // H2 -> 2(H2)^2
@@ -30,7 +30,7 @@ void CumulantFromCK()
   TProfile* hm_4 = (TProfile*)file->Get("hmult_recursion_0_4");
   cout << hm_4 << endl;
   TH1D* hm_6_new = hm_4->ProjectionX("hm_4_new", "B");
-  TH1D* H6_0 = hm_6_new; // Copy for math operations for <<6>>
+  TH1D* H6_0 = hm_6_new->Clone("H6_0"); // Copy for math operations for <<6>>
 
 
 
@@ -70,6 +70,19 @@ void CumulantFromCK()
   hm_8_new->Add(H4_1,1.0); // H8 -> H8 - 16(H6)(H2) + 144(H4)(H2)^2
   hm_8_new->Add(H4_2,-1.0); // H8 -> H8 - 16(H6)(H2) - 18(H4)^2 + 144(H4)(H2)^2
   hm_8_new->Add(H2_2,-1.0); // H8 -> H8 - 16(H6)(H2) - 18(H4)^2 + 144(H4)(H2)^2 - 144(H4)^4
+
+
+
+  // Getting rid of the garbage from this junkpile
+  delete H2_0;
+  delete H2_1;
+  delete H2_2;
+  delete H4_0;
+  delete H4_1;
+  delete H4_2;
+  delete H6_0;
+  // Garbage collection is important to prevent memory leaks, and I just made a whole shitload
+  // of extra memory addresses up there, so I had to fix it
 
   return;
 
