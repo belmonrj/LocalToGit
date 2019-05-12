@@ -71,6 +71,19 @@ void CumulantFromCK()
   hm_8_new->Add(H4_2,-1.0); // H8 -> H8 - 16(H6)(H2) - 18(H4)^2 + 144(H4)(H2)^2
   hm_8_new->Add(H2_2,-1.0); // H8 -> H8 - 16(H6)(H2) - 18(H4)^2 + 144(H4)(H2)^2 - 144(H4)^4
 
+
+
+  // Getting rid of the garbage from this junkpile
+  delete H2_0;
+  delete H2_1;
+  delete H2_2;
+  delete H4_0;
+  delete H4_1;
+  delete H4_2;
+  delete H6_0;
+  // Garbage collection is important to prevent memory leaks, and I just made a whole shitload
+  // of extra memory addresses up there, so I had to fix it
+
   return;
 
   //c{2} = <2>
