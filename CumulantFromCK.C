@@ -113,29 +113,53 @@ void CumulantFromCK()
   // v{2}
   for(i=1; i<=t; ++i){
     double val = hm_2_new->GetBinContent(i);
+    double origErr = hm_2_new->GetBinError(i);
     double op = pow((val), (1/2));
+    double newErr = (origErr)/(2*op);
     vm_2->SetBinContent(i, op); // arguments are an integer and a double
-  }// v{2}
+    vm_2->SetBinError(i, newErr);
+  }// v{2} w/error
 
   //v{4}
   for(i=1; i<=u; ++i){
     double val = hm_4_new->GetBinContent(i);
+    double valTwo = hm_2_new->GetBinContent(i);
+    double origErr = hm_4_new->GetBinError(i);
     double op = pow((-val), (1/4));
+    double dWRTTwo = valTwo*(-val + (2*valTwo*valTwo))*origErr;
+    double dWRTFour = (-val + (2*valTwo*valTwo))*origErr/16;
+    double newErr = pow((dWRTTwo + dWRTFour)*(origErr*origErr), .5);
     vm_4->SetBinContent(i, op);
-  }// v{4} 
+    vm_4->SetBinError(i, newErr);
+  }// v{4} w/error
 
   // v{6}
   for(i=1; i<=v; ++i){
     double val = hm_6_new->GetBinContent(i);
+    double valTwo = hm_2_new->GetBinContent(i);
+    double valFour = hm_4_new->GetBinContent(i);
+    double origErr = hm_6_new->GetBinError(i);
+    double innerTerm = pow((val-(9*valTwo*valFour)+12*(valTwo*valTwo*valTwo)), (-5/6));
+    double outerTerm = pow((1/6), 2) + pow((9*valTwo/6), 2) + pow(((9*valFour)/6 + 24*(valTwo*valTwo)/6),2);
+    double newErr = pow((innerTerm*innerTerm)*(outerTerm)*(origErr*origErr), .5);
     double op = pow((val/4), (1/6));
     vm_6->SetBinContent(i, op);
-  }// v{6}
+    vm_6->SetBinError(i, newErr);
+  }// v{6} w/error
 
   //v{8}
   for(i=1; i<=w; ++i){
     double val = hm_8_new->GetBinContent(i);
+    double valTwo = hm_2_new->GetBinContent(i);
+    double valFour = hm_4_new->GetBinContent(i);
+    double valSix = hm_6_new->GetBinContent(i);
+    double origErr = hm_8_new->GetBinError(i);
+    double innerTerm = pow(((-val/33) + ((16*valSix*valTwo)/33) + ((18*valFour*valFour)/33) - ((144*valFour*valTwo*valTwo)/33) + ((144*valTwo*valTwo))/33), (-7/8));
+    double outerTerm = pow((1/8), 2) + pow((16*valTwo), 2) + pow(((36*valFour)-(144*valTwo*valTwo)), 2) + pow((16*valSix), 2);
+    double newErr = pow((innerTerm*innerTerm)*(outerTerm)*(origErr*origErr), .5);
     double op = pow((-val/33), (1/8));
     vm_8->SetBinContent(i, op);
+    vm_8->SetBinError(i, newErr);
   }
 
 
