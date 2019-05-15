@@ -125,10 +125,13 @@ void CumulantFromCK()
     double val = hm_4_new->GetBinContent(i);
     double valTwo = hm_2_new->GetBinContent(i);
     double origErr = hm_4_new->GetBinError(i);
+    double origErrTwo = hm_2_new->GetBinError(i);
     double op = pow((-val), (1/4));
     double dWRTTwo = valTwo*(-val + (2*valTwo*valTwo))*origErr;
     double dWRTFour = (-val + (2*valTwo*valTwo))*origErr/16;
     double newErr = pow((dWRTTwo + dWRTFour)*(origErr*origErr), .5);
+    double ev24 = (1.0/pow(-val,0.75))*sqrt((valTwo*valTwo*origErrTwo*origErrTwo)+(0.0625*origErr*origErr));
+    //The original line is the following:   ev24 = (1.0/pow(-c24,0.75))*sqrt((two*two*etwo*etwo)+(0.0625*efour*efour));
     vm_4->SetBinContent(i, op);
     vm_4->SetBinError(i, newErr);
   }// v{4} w/error
@@ -161,6 +164,24 @@ void CumulantFromCK()
     vm_8->SetBinContent(i, op);
     vm_8->SetBinError(i, newErr);
   }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Error calculation testing
+  TH1D* vm_4_test = (TH1D*)vm_4->Clone("vm_4_test");
+
+  //v{4}_test
+  for(i=1; i<=u; ++i){
+    double val = hm_4_new->GetBinContent(i);
+    double valTwo = hm_2_new->GetBinContent(i);
+    double origErr = hm_4_new->GetBinError(i);
+    double origErrTwo = hm_2_new->GetBinError(i);
+    double op = pow((-val), (1/4));
+    double newErr = (1.0/pow(-val,0.75))*sqrt((valTwo*valTwo*origErrTwo*origErrTwo)+(0.0625*origErr*origErr));
+    //The original line is the following:   ev24 = (1.0/pow(-c24,0.75))*sqrt((two*two*etwo*etwo)+(0.0625*efour*efour));
+    vm_4_test->SetBinContent(i, op);
+    vm_4_test->SetBinError(i, newErr);
+  }// v{4}_test w/error
+
 
 
 
