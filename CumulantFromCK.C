@@ -71,7 +71,6 @@ void CumulantFromCK()
   hm_8_new->Add(H2_2,-1.0); // H8 -> H8 - 16(H6)(H2) - 18(H4)^2 + 144(H4)(H2)^2 - 144(H4)^4
 
 
-
   // Getting rid of the garbage from this junkpile
   delete H2_0;
   delete H2_1;
@@ -182,7 +181,25 @@ void CumulantFromCK()
     vm_4_test->SetBinError(i, newErr);
   }// v{4}_test w/error
 
+    // TCanvas to print objects to
+  TCanvas *c1 = new TCanvas("c1", "c1");
+  hm_2_new->Draw();
+  c1->Print("c(hmult)2.png");
 
+  hm_4_new->Draw();
+  c1->Print("c(hmult)4.png");
+
+  hm_6_new->Draw();
+  c1->Print("c(hmult)6.png");
+
+  hm_8_new->Draw();
+  c1->Print("c(hmult)8.png");
+
+  vm_4->Draw();
+  c1->Print("v(<<4>>).png");
+
+  vm_4_test->Draw();
+  c1->Print("v(<<4>>)_test.png");
 
 
   return;
