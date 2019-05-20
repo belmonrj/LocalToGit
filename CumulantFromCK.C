@@ -214,26 +214,21 @@ void CumulantFromCK()
 
   // Sample class for TF1 --> TF1* function = new TF1(“function”,“1/(x-1)“,2,500)
 
-  TProfile* fitHmTwo = (TH1D*)hm_2_new->Copy("fitHmTwo");
-  cout << fitHmTwo << endl;
-  fitHmTwo->Fit(N2,"","",2,100);
-  fitHmTwo->Draw();
+  cout << hm_2_new << endl;
+  hm_2_new->Fit(N2,"","",2,100);
+  hm_2_new->Draw();
 
+  cout << hm_4_new << endl;
+  hm_4_new->Fit(N4,"","",4,100);
+  hm_4_new->Draw();
 
-  TProfile* fitHmFour = (TH1D*)hm_4_new->Copy("fitHmFour");
-  cout << fitHmFour << endl;
-  fitHmFour->Fit(N4,"","",4,100);
-  fitHmFour->Draw();
+  cout << hm_6_new << endl;
+  hm_6_new->Fit(N6,"","",6,100);
+  hm_6_new->Draw();
 
-  TProfile* fitHmSix = (TH1D*)hm_6_new->Copy("fitHmSix");
-  cout << fitHmSix << endl;
-  fitHmSix->Fit(N6,"","",6,100);
-  fitHmSix->Draw();
-
-  TProfile* fitHmEight = (TH1D*)hm_2_new->Copy("fitHmEight");
-  cout << fitHmEight << endl;
-  fitHmEight->Fit(N8,"","",8,100);
-  fitHmEight->Draw();
+  cout << hm_8_new << endl;
+  hm_8_new->Fit(N8,"","",8,100);
+  hm_8_new->Draw();
 
 
   return;
