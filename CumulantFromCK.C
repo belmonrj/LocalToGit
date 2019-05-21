@@ -184,22 +184,51 @@ void CumulantFromCK()
     // TCanvas to print objects to
   TCanvas *c1 = new TCanvas("c1", "c1");
   hm_2_new->Draw();
-  c1->Print("c(hmult)2.png");
+  c1->Print("chmult2.png");
 
   hm_4_new->Draw();
-  c1->Print("c(hmult)4.png");
+  c1->Print("chmult4.png");
 
   hm_6_new->Draw();
-  c1->Print("c(hmult)6.png");
+  c1->Print("chmult6.png");
 
   hm_8_new->Draw();
-  c1->Print("c(hmult)8.png");
+  c1->Print("chmult8.png");
 
   vm_4->Draw();
-  c1->Print("v(<<4>>).png");
+  c1->Print("vOfCOf4.png");
 
   vm_4_test->Draw();
-  c1->Print("v(<<4>>)_test.png");
+  c1->Print("vOfCOf4_test.png");
+
+
+
+
+
+
+
+  TF1* N2 = new TF1("N2","[0]*1/(x-1)",2,500);
+  TF1* N4 = new TF1("N4","[0]*6/((x-1)*(x-2)*(x-3))",4,500);
+  TF1* N6 = new TF1("N6","[0]*120/((x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6))",6,500);
+  TF1* N8 = new TF1("N8","[0]*5040/((x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6)*(x-7)*(x-8)",8,500);
+
+  // Sample class for TF1 --> TF1* function = new TF1(“function”,“1/(x-1)“,2,500)
+
+  cout << hm_2_new << endl;
+  hm_2_new->Fit(N2,"","",2,100);
+  hm_2_new->Draw();
+
+  cout << hm_4_new << endl;
+  hm_4_new->Fit(N4,"","",4,100);
+  hm_4_new->Draw();
+
+  cout << hm_6_new << endl;
+  hm_6_new->Fit(N6,"","",6,100);
+  hm_6_new->Draw();
+
+  cout << hm_8_new << endl;
+  hm_8_new->Fit(N8,"","",8,100);
+  hm_8_new->Draw();
 
 
   return;
