@@ -18,24 +18,23 @@ void RandomPhi()
 
 
   //important typecasting
-  int events = 100; //put events number here
-  double j[events];
-  double k[events];
-  double l[events];
-  int i = 0;
+  int pairs = 50; //put number of pairs per event here
 
+  int events = 1000;
 
-  //loop of correlations
-  for(i = 0; i <= events; ++i)
-    {
-    double phi = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/pi));
-    j[i] = phi;
-    k[i] = phi + pi;
-    l[i] = j[i]-k[i];
-    phi_for_monty->Fill(j[i],1.0);
-    }
-  phi_for_monty->Draw();
-  c1->Print("phiForMrBurns.png");
+  //loop of events and
+  for(int m = 0; m <= events; ++m){
+
+    for(int i = 0; i <= pairs; ++i)
+      {
+        double phi = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/pi));
+        double j = phi;
+        double k = phi + pi;
+        phi_for_monty->Fill(j,1.0);
+      }
+  }
+    phi_for_monty->Draw();
+    c1->Print("phiForMrBurns.png");
 
       //phi_for_monty->FillN(events, *j, 1.0, 1.0) // here is where the error is
 
