@@ -15,7 +15,7 @@ void RandomPhi()
   // Objects for printing/filling
   TH1D* phi_for_monty = new TH1D("phi_for_monty", "Test Phi Print", 100, 0, pi); // can label axes with "Title; XAxisTitle; YAxisTitle"
   TCanvas* c1 = new TCanvas("c1", "samples",200, 10 , 600, 400);
-
+  phi_for_monty->SetMinimum(0);
 
   //important typecasting
   int pairs = 50; //put number of pairs per event here
