@@ -16,8 +16,8 @@ void HistArrayMaker(int pairs, int events, TH1D* tha[])
             double phi = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/pi));
             tha[i]->Fill(phi,1.0);
             tha[i]->SetMinimum(0);
-            tha[i]->Write();
           }
+        tha[i] ->Write();
       }
   return;
 }
