@@ -1,5 +1,36 @@
 using namespace std;
 
+double * tGrapherX(int a)
+{
+  static double x[1000];
+  Int_t n = 1000;
+
+// loop for maths
+  for (Int_t i = 0; i<n; ++i)
+    {
+      x[i] = (i+1.0);
+    }
+
+  return x;
+}
+
+
+
+double * tGrapherY(int a)
+{
+  static double y[1000];
+  Int_t n = 1000;
+
+// loop for maths
+  for (Int_t i = 0; i<n; ++i)
+    {
+      y[i] = pow((i),a)/pow((i+1),a);
+    }
+
+  return y;
+}
+
+
 void NGrapher()
 {
   // Objects : TCanvas, TGraph array
@@ -35,36 +66,3 @@ void NGrapher()
   return;
 }
 
-
-
-int tGrapherX(int a)
-{
-  double x[1000];
-  double y[1000];
-  Int_t n = 1000;
-
-// loop for maths
-  for (Int_t i = 0; i<n; ++i)
-    {
-      x[i] = (i+1);
-    }
-
-  return x;
-}
-
-
-
-double tGrapherY(int a)
-{
-  double x[1000];
-  double y[1000];
-  Int_t n = 1000;
-
-// loop for maths
-  for (Int_t i = 0; i<n; ++i)
-    {
-      y[i] = pow((i),a)/pow((i+1),a);
-    }
-
-  return y;
-}
