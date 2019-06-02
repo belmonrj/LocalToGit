@@ -52,8 +52,8 @@ void NGrapher()
   EColor z[4] = {kBlue, kGreen, kRed, kOrange};
   for (int q = 0; q<4; ++q)
     {
-      arr[q]->SetLineWidth(2); // RB - added this to make it a bit easier to see under the fit             
-      arr[q]->SetLineStyle(2); // RB - added this to make it a bit easier to see under the fit             
+      arr[q]->SetLineWidth(2);
+      arr[q]->SetLineStyle(2);
       arr[q]->SetLineColor(z[q]);
       arr[q]->Draw("l");
       arr[q]->Draw();
