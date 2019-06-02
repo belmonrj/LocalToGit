@@ -6,12 +6,13 @@ double * tGrapherX(int a)
   Int_t n = 1000;
 
 // loop for maths
-  for (Int_t i = 0; i<n; ++i)
-    {
-      x[i] = (i+1.0);
-    }
+   for (Int_t i = 0; i<n; ++i)
+     {
+       x[i] = (i+1.0);
+     }
 
-  return x;
+
+   return x;
 }
 
 
@@ -36,6 +37,7 @@ void NGrapher()
   // Objects : TCanvas, TGraph array
   TCanvas *c1 = new TCanvas("c1","example");
   TGraph* arr[4];
+  TGraph* arrTwo[4];
 
   // array lengths and constant declarations
   int j[4] = {1, 3, 5, 7};
@@ -45,6 +47,7 @@ void NGrapher()
   for (int i = 0; i < 4; ++i)
     {
       arr[i] = new TGraph(n, tGrapherX(j[i]), tGrapherY(j[i]));
+      //      arrTwo[i] = new TGraph(n, tGrapherX(j[i])/((double *)(j[i]+1)), tGrapherY(j[i]));
     }
 
 
