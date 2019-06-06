@@ -55,19 +55,31 @@ void NGrapher()
   EColor z[4] = {kBlue, kGreen, kRed, kOrange};
   for (int q = 0; q<4; ++q)
     {
+      c1->Clear();
       arr[q]->SetLineWidth(2);
       arr[q]->SetLineStyle(2);
       arr[q]->SetLineColor(z[q]);
-      arr[q]->Draw("l");
+      arr[q]->GetXaxis()->SetTitle("Multiplicity");
+      arr[q]->GetYaxis()->SetTitle("Ratio");
+      arr[q]->GetXaxis()->SetLimits(0.0,1000.0);
+      arr[q]->SetMinimum(0.0);
+      arr[q]->SetMaximum(1.1);
       arr[q]->Draw();
+      c1->Print(Form("ngrapher_single_%d.png",q));
     }
 
   for (int i = 0; i < 4; ++i)
     {
-      arr[i]->Paint();
+      arr[i]->Draw();
     }
+  TLegend* leg = new TLegend(0.68,0.18,0.88,0.38);
+  leg->AddEntry(arr[0],"arr0","l");
+  leg->AddEntry(arr[1],"arr1","l");
+  leg->AddEntry(arr[2],"arr2","l");
+  leg->AddEntry(arr[3],"arr3","l");
+  leg->Draw();
 
-  c1->Print();
+  c1->Print("ngrapher_all.png");
 
   return;
 }
