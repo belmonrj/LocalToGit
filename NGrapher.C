@@ -8,14 +8,22 @@ double * tGrapherX(int a)
 // loop for maths
    for (Int_t i = 0; i<n; ++i)
      {
-       x[i] = (i+1.0);
+       x[i] = i+1.0;
      }
 
 
    return x;
 }
 
-
+double NTop(int n, int minus)
+{
+  int x = 1;
+  for(int i = 1; i <= minus; ++i)
+    {
+      x = x * (n - i);
+    }
+  return x;
+}
 
 double * tGrapherY(int a)
 {
@@ -25,7 +33,7 @@ double * tGrapherY(int a)
 // loop for maths
   for (Int_t i = 0; i<n; ++i)
     {
-      y[i] = pow((i),a)/pow((i+1),a);
+      y[i] = NTop(i,a)/pow((i+1),a);
     }
 
   return y;
