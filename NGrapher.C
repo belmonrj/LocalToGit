@@ -3,10 +3,10 @@ using namespace std;
 double * tGrapherX(int a)
 {
   static double x[1000];
-  Int_t n = 1000;
+  int n = 1000;
 
 // loop for maths
-   for (Int_t i = 0; i<n; ++i)
+   for (int i = 0; i<n; ++i)
      {
        x[i] = i+1.0;
      }
@@ -17,7 +17,7 @@ double * tGrapherX(int a)
 
 double NTop(int n, int minus)
 {
-  int x = 1;
+  double x = 1.0;
   for(int i = 1; i <= minus; ++i)
     {
       x = x * (n - i);
@@ -31,7 +31,7 @@ double * tGrapherY(int a)
   Int_t n = 1000;
 
 // loop for maths
-  for (Int_t i = 0; i<n; ++i)
+  for (int i = 0; i<n; ++i)
     {
       y[i] = NTop(i,a)/pow((i+1),a);
     }
