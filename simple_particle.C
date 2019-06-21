@@ -211,38 +211,6 @@ int main()
 
   pythia.stat(); // tell about some statistics for this run
 
-  TCanvas* c1 = new TCanvas("c1","");
-
-  hmult->Draw();
-  c1->Print("p8_hmult.png");
-
-  hmult_selected->Draw();
-  c1->Print("p8_hmult_sel.png");
-
-  // fixed name in accordance with above
-  heta->Draw();
-  heta->SetMinimum(0); // root zero suppresses by default
-  c1->Print("p8_eta.png");
-
-  hPhi->Draw();
-  hPhi->SetMinimum(0);
-  c1->Print("p8_phi.png");
-
-  heta_vec->Draw();
-  heta_vec->SetMinimum(0); // root zero suppresses by default
-  c1->Print("p8_eta_vec.png");
-
-  hPhi_vec->Draw();
-  hPhi_vec->SetMinimum(0);
-  c1->Print("p8_phi_vec.png");
-
-  tp1f_c22mult->Draw();
-  c1->Print("p8_c22mult.png");
-
-
-
-
-
 
 
   //////////Code added to test drawing of the recursion files
