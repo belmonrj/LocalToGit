@@ -65,7 +65,7 @@ void NGrapher()
       arr[q]->SetMinimum(0.0);
       arr[q]->SetMaximum(1.1);
       arr[q]->Draw();
-      c1->Print(Form("ngrapher_single_%d.png",q));
+      c1->Print(Form("CombinatoricFigures/ngrapher_single_%d.png",q));
     }
 
   for (int i = 0; i < 4; ++i)
@@ -79,7 +79,7 @@ void NGrapher()
   leg->AddEntry(arr[3],"arr3","l");
   leg->Draw();
 
-  c1->Print("ngrapher_all.png");
+  c1->Print("CombinatoricFigures/ngrapher_all.png");
 
   return;
 }

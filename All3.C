@@ -190,8 +190,8 @@ void doAll3(int limit)
   legend->AddEntry(cfall,"fall fac","l");
   legend->SetTextSize(0.05);
   legend->Draw();
-  //c4->Print("comb_all3k2.png");
-  c4->Print(Form("comb_all3k2_ntrk%d.png",limit));
+  //c4->Print("CombinatoricFigures/comb_all3k2.png");
+  c4->Print(Form("CombinatoricFigures/comb_all3k2_ntrk%d.png",limit));
 
   //---------------------------------------------------------------------------------------------------------
 
@@ -220,13 +220,13 @@ void doAll3(int limit)
   legend2->AddEntry(cfall,"fall fac","l");
   legend2->SetTextSize(0.05);
   legend2->Draw();
-  //c4->Print("comb_all3k4.png");
-  c4->Print(Form("comb_all3k4_ntrk%d.png",limit));
+  //c4->Print("CombinatoricFigures/comb_all3k4.png");
+  c4->Print(Form("CombinatoricFigures/comb_all3k4_ntrk%d.png",limit));
 
   c32->SetMinimum(1e-10);
   c4->SetLogy();
-  //c4->Print("comb_all3k4_log.png");
-  c4->Print(Form("comb_all3k4_log_ntrk%d.png",limit));
+  //c4->Print("CombinatoricFigures/comb_all3k4_log.png");
+  c4->Print(Form("CombinatoricFigures/comb_all3k4_log_ntrk%d.png",limit));
 
   //----------------------------------------------------------------------------------------------------------------------
 
@@ -256,13 +256,13 @@ void doAll3(int limit)
   legend3->AddEntry(cfall,"fall fac","l");
   legend3->SetTextSize(0.05);
   legend3->Draw();
-  //c4->Print("comb_all3k6.png");
-  c4->Print(Form("comb_all3k6_ntrk%d.png",limit));
+  //c4->Print("CombinatoricFigures/comb_all3k6.png");
+  c4->Print(Form("CombinatoricFigures/comb_all3k6_ntrk%d.png",limit));
 
   c33->SetMinimum(1e-12);
   c4->SetLogy();
-  //c4->Print("comb_all3k6_log.png");
-  c4->Print(Form("comb_all3k6_log_ntrk%d.png",limit));
+  //c4->Print("CombinatoricFigures/comb_all3k6_log.png");
+  c4->Print(Form("CombinatoricFigures/comb_all3k6_log_ntrk%d.png",limit));
 
   //--------------------------------------------------------------------------------------------------------------
   TGraph* c34 = new TGraph (limit, num, o4);
@@ -290,12 +290,12 @@ void doAll3(int limit)
   legend4->AddEntry(cfall,"fall fac","l");
   legend4->SetTextSize(0.05);
   legend4->Draw();
-  //c4->Print("comb_all3k8.png");
-  c4->Print(Form("comb_all3k8_ntrk%d.png",limit));
+  //c4->Print("CombinatoricFigures/comb_all3k8.png");
+  c4->Print(Form("CombinatoricFigures/comb_all3k8_ntrk%d.png",limit));
 
   c34->SetMinimum(1e-12);
   c4->SetLogy();
-  //c4->Print("comb_all3k8_log.png");
-  c4->Print(Form("comb_all3k8_ntrk%dlog.png",limit));
+  //c4->Print("CombinatoricFigures/comb_all3k8_log.png");
+  c4->Print(Form("CombinatoricFigures/comb_all3k8_ntrk%dlog.png",limit));
 
 }//Fucntion3Gra
