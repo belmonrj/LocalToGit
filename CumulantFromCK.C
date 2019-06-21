@@ -82,22 +82,22 @@ void CumulantFromCK()
   hm_2_new->GetXaxis()->SetRangeUser(0,100);
   hm_2_new->GetXaxis()->SetTitle("Multiplicity");;
   hm_2_new->Draw();
-  c1->Print("chmult2.png");
+  c1->Print("PythiaFigures/chmult2.png");
 
   hm_4_new->GetXaxis()->SetRangeUser(0,100);
   hm_4_new->GetXaxis()->SetTitle("Multiplicity");;
   hm_4_new->Draw();
-  c1->Print("chmult4.png");
+  c1->Print("PythiaFigures/chmult4.png");
 
   hm_6_new->GetXaxis()->SetRangeUser(0,100);
   hm_6_new->GetXaxis()->SetTitle("Multiplicity");;
   hm_6_new->Draw();
-  c1->Print("chmult6.png");
+  c1->Print("PythiaFigures/chmult6.png");
 
   hm_8_new->GetXaxis()->SetRangeUser(0,100);
   hm_8_new->GetXaxis()->SetTitle("Multiplicity");;
   hm_8_new->Draw();
-  c1->Print("chmult8.png");
+  c1->Print("PythiaFigures/chmult8.png");
 
   //return;
 
@@ -228,25 +228,25 @@ void CumulantFromCK()
   vm_2->GetXaxis()->SetTitle("Multiplicity");
   vm_2->SetMinimum(0.0);
   vm_2->Draw();
-  c1->Print("mult_v2.png");
+  c1->Print("PythiaFigures/mult_v2.png");
 
   vm_4->GetXaxis()->SetRangeUser(0,100);
   vm_4->GetXaxis()->SetTitle("Multiplicity");
   vm_4->SetMinimum(0.0);
   vm_4->Draw();
-  c1->Print("mult_v4.png");
+  c1->Print("PythiaFigures/mult_v4.png");
 
   vm_6->GetXaxis()->SetRangeUser(0,100);
   vm_6->GetXaxis()->SetTitle("Multiplicity");
   vm_6->SetMinimum(0.0);
   vm_6->Draw();
-  c1->Print("mult_v6.png");
+  c1->Print("PythiaFigures/mult_v6.png");
 
   vm_8->GetXaxis()->SetRangeUser(0,100);
   vm_8->GetXaxis()->SetTitle("Multiplicity");
   vm_8->SetMinimum(0.0);
   vm_8->Draw();
-  c1->Print("mult_v8.png");
+  c1->Print("PythiaFigures/mult_v8.png");
 
 
   //return;
@@ -268,22 +268,22 @@ void CumulantFromCK()
   cout << hm_2_new << endl;
   hm_2_new->Fit(N2,"","",2,100);
   hm_2_new->Draw();
-  c1->Print("fit_chmult2.png");
+  c1->Print("PythiaFigures/fit_chmult2.png");
 
   cout << hm_4_new << endl;
   hm_4_new->Fit(N4,"","",4,100);
   hm_4_new->Draw();
-  c1->Print("fit_chmult4.png");
+  c1->Print("PythiaFigures/fit_chmult4.png");
 
   cout << hm_6_new << endl;
   hm_6_new->Fit(N6,"","",6,100);
   hm_6_new->Draw();
-  c1->Print("fit_chmult6.png");
+  c1->Print("PythiaFigures/fit_chmult6.png");
 
   cout << hm_8_new << endl;
   hm_8_new->Fit(N8,"","",8,100);
   hm_8_new->Draw();
-  c1->Print("fit_chmult8.png");
+  c1->Print("PythiaFigures/fit_chmult8.png");
 
 
   return;
