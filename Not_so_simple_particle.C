@@ -167,7 +167,7 @@ int main()
       TComplex twoRecursion = Recursion(2,harmonics_Two_Num)/Recursion(2,harmonics_Two_Den).Re();
       //double spwTwoRecursion = Recursion(2,harmonics_Two_Den).Re();
       double wTwoRecursion = 1.0;
-      hmult_recursion_[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion); // <<cos(h1*phi1+h2*phi2)>>
+      hmult_recursion[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion); // <<cos(h1*phi1+h2*phi2)>>
       hmult_recursion[1][0]->Fill(mult,twoRecursion.Im(),wTwoRecursion); // <<sin(h1*phi1+h2*phi2)>>
       //  4-p correlations:
       //cout<<” => Calculating 4-p correlations (using recursion)...       \r”<<flush;
