@@ -5,10 +5,10 @@ void CosinePlotterTFileOne()
   TCanvas* c1 = new TCanvas("c1","");
 
   //histogram->Fit(function,“R”);
-  TF1* N2 = new TF1("N2","[0]*1/(x-1)",2,500);
-  TF1* N4 = new TF1("N4","[0]*6/((x-1)*(x-2)*(x-3))",4,500);
-  TF1* N6 = new TF1("N6","[0]*120/((x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6))",6,500);
-  TF1* N8 = new TF1("N8","[0]*5040/((x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6)*(x-7)*(x-8))",8,500);
+  TF1* N2 = new TF1("N2","([0]+.1)*1/(x-1)",2,500);
+  TF1* N4 = new TF1("N4","([0]+.01)*6/((x-1)*(x-2)*(x-3))",4,500);
+  TF1* N6 = new TF1("N6","([0]+.01)*120/((x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6))",6,500);
+  TF1* N8 = new TF1("N8","([0]+.01)*5040/((x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6)*(x-7)*(x-8))",8,500);
 
   // Sample class for TF1 --> TF1* function = new TF1(“function”,“1/(x-1)“,2,500)
 
@@ -21,7 +21,7 @@ void CosinePlotterTFileOne()
   hm_0->SetMinimum(-0.1);
   hm_0->GetXaxis()->SetRangeUser(0,100);
   hm_0->Draw();
-  c1->Print("test_fit_2.png");
+  c1->Print("PythiaFigures/kmult_fit_2.png");
 
   TProfile* hm_2 = (TProfile*)file->Get("hmult_recursion_0_2");
   cout << hm_2 << endl;
@@ -30,7 +30,7 @@ void CosinePlotterTFileOne()
   hm_2->SetMinimum(-0.01);
   hm_2->GetXaxis()->SetRangeUser(0,100);
   hm_2->Draw();
-  c1->Print("test_fit_4.png");
+  c1->Print("PythiaFigures/kmult_fit_4.png");
 
   TProfile* hm_4 = (TProfile*)file->Get("hmult_recursion_0_4");
   cout << hm_4 << endl;
@@ -39,7 +39,7 @@ void CosinePlotterTFileOne()
   hm_4->SetMinimum(-0.001);
   hm_4->GetXaxis()->SetRangeUser(0,100);
   hm_4->Draw();
-  c1->Print("test_fit_6.png");
+  c1->Print("PythiaFigures/kmult_fit_6.png");
 
   TProfile* hm_6 = (TProfile*)file->Get("hmult_recursion_0_6");
   cout << hm_6 << endl;
@@ -48,7 +48,7 @@ void CosinePlotterTFileOne()
   hm_6->SetMinimum(-0.0001);
   hm_6->GetXaxis()->SetRangeUser(0,100);
   hm_6->Draw();
-  c1->Print("test_fit_8.png");
+  c1->Print("PythiaFigures/kmult_fit_8.png");
 
   return;
 
