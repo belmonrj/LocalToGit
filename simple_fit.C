@@ -5,7 +5,7 @@ void simple_fit()
 
   gStyle->SetOptStat(0);
 
-  TFile* file = TFile::Open("FileOne.root");
+  TFile* file = TFile::Open("FileTwo.root");
   //Definitions of <<2>>
   TProfile* hm_0 = (TProfile*)file->Get("hmult_recursion_0_0");
   cout << hm_0 << endl;
