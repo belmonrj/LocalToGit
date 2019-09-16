@@ -167,8 +167,10 @@ int main()
       TComplex twoRecursion = Recursion(2,harmonics_Two_Num)/Recursion(2,harmonics_Two_Den).Re();
       //double spwTwoRecursion = Recursion(2,harmonics_Two_Den).Re();
       double wTwoRecursion = 1.0;
+      if(mult >= 2){
       hmult_recursion[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion); // <<cos(h1*phi1+h2*phi2)>>
       hmult_recursion[1][0]->Fill(mult,twoRecursion.Im(),wTwoRecursion); // <<sin(h1*phi1+h2*phi2)>>
+      }
       //  4-p correlations:
       //cout<<” => Calculating 4-p correlations (using recursion)...       \r”<<flush;
       int harmonics_Four_Num[4] = {2,2,-2,-2};
@@ -176,8 +178,10 @@ int main()
       TComplex fourRecursion = Recursion(4,harmonics_Four_Num)/Recursion(4,harmonics_Four_Den).Re();
       //double spwFourRecursion = Recursion(4,harmonics_Four_Den).Re();
       double wFourRecursion = 1.0;
+      if(mult >=4){
       hmult_recursion[0][2]->Fill(mult,fourRecursion.Re(),wFourRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
       hmult_recursion[1][2]->Fill(mult,fourRecursion.Im(),wFourRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
+      }
       //  6-p correlations:
       //cout<<” => Calculating 6-p correlations (using recursion)...       \r"<<flush;
       int harmonics_Six_Num[6] = {2,2,2,-2,-2,-2};
@@ -185,8 +189,10 @@ int main()
       TComplex sixRecursion = Recursion(6,harmonics_Six_Num)/Recursion(6,harmonics_Six_Den).Re();
       //double spwSixRecursion = Recursion(6,harmonics_Six_Den).Re();
       double wSixRecursion = 1.0;
+      if(mult >= 6){
       hmult_recursion[0][4]->Fill(mult,sixRecursion.Re(),wSixRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
       hmult_recursion[1][4]->Fill(mult,sixRecursion.Im(),wSixRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
+      }
       //  8-p correlations:
       //cout<<” => Calculating 8-p correlations (using recursion)...       \r"<<flush;
       int harmonics_Eight_Num[8] = {2,2,2,2,-2,-2,-2,-2};
@@ -194,8 +200,10 @@ int main()
       TComplex eightRecursion = Recursion(8,harmonics_Eight_Num)/Recursion(8,harmonics_Eight_Den).Re();
       //double spwEightRecursion = Recursion(8,harmonics_Eight_Den).Re();
       double wEightRecursion = 1.0;
+      if(mult >= 8){
       hmult_recursion[0][6]->Fill(mult,eightRecursion.Re(),wEightRecursion);
       hmult_recursion[1][6]->Fill(mult,eightRecursion.Im(),wEightRecursion);
+      }
       ////End of ripped codes from 'Boulder' codes
 
 
@@ -215,7 +223,7 @@ int main()
 
   //////////Code added to test drawing of the recursion files
   hmult_recursion[0][6]->Draw();
-  c1->Print("hmult_recursion_test.png");
+  //  c1->Print("hmult_recursion_test.png");
   //////////////
 
 

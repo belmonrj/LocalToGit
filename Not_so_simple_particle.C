@@ -8,7 +8,9 @@
 
 // this is a copy with very minor modification by Ron Belmont
 // Also edited to by Aidan Lytle to produce an eta distribution
-
+#include <fstream>
+#include <string>
+#include <ctime>
 #include "TROOT.h"
 #include "TH1D.h"
 #include "TProfile.h"
@@ -21,7 +23,6 @@
 using namespace Pythia8;
 
 const double pi = 3.1415926;
-
 // Stuff for cumulants greater than 2
 static const int maxCorrelator = 12; // Somewhat abusing the setup as it is...
 static const int maxHarmonic = 10; // Need to assess on case-by-case basis, but this gets you v2{8} and v3{6}
@@ -30,6 +31,20 @@ TComplex Qvector[maxHarmonic][maxPower]; // All needed Q-vector components
 TComplex Q(int, int);
 TComplex Recursion(int, int*);
 TComplex Recursion(int, int*, int, int);
+
+//To generate the string with the date and time for the TFile name
+string datetime()
+{
+  time_t rawtime;
+  struct tm * timeinfo;
+  char buffer[80];
+
+  time (&rawtime);
+  timeinfo = localtime(&rawtime);
+
+  strftime(buffer, sizeof(buffer),"%d-%m-%Y--%H:%M:%S", timeinfo);
+  return std::string(buffer);
+}
 
 int main()
 {
@@ -167,8 +182,10 @@ int main()
       TComplex twoRecursion = Recursion(2,harmonics_Two_Num)/Recursion(2,harmonics_Two_Den).Re();
       //double spwTwoRecursion = Recursion(2,harmonics_Two_Den).Re();
       double wTwoRecursion = 1.0;
+      if(mult >= 2){
       hmult_recursion[0][0]->Fill(mult,twoRecursion.Re(),wTwoRecursion); // <<cos(h1*phi1+h2*phi2)>>
       hmult_recursion[1][0]->Fill(mult,twoRecursion.Im(),wTwoRecursion); // <<sin(h1*phi1+h2*phi2)>>
+      }
       //  4-p correlations:
       //cout<<” => Calculating 4-p correlations (using recursion)...       \r”<<flush;
       int harmonics_Four_Num[4] = {4,4,-4,-4};
@@ -176,8 +193,10 @@ int main()
       TComplex fourRecursion = Recursion(4,harmonics_Four_Num)/Recursion(4,harmonics_Four_Den).Re();
       //double spwFourRecursion = Recursion(4,harmonics_Four_Den).Re();
       double wFourRecursion = 1.0;
+      if(mult >= 4){
       hmult_recursion[0][2]->Fill(mult,fourRecursion.Re(),wFourRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
       hmult_recursion[1][2]->Fill(mult,fourRecursion.Im(),wFourRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4)>>
+      }
       //  6-p correlations:
       //cout<<” => Calculating 6-p correlations (using recursion)...       \r"<<flush;
       int harmonics_Six_Num[6] = {6,6,6,-6,-6,-6};
@@ -185,8 +204,10 @@ int main()
       TComplex sixRecursion = Recursion(6,harmonics_Six_Num)/Recursion(6,harmonics_Six_Den).Re();
       //double spwSixRecursion = Recursion(6,harmonics_Six_Den).Re();
       double wSixRecursion = 1.0;
+      if(mult >= 6){
       hmult_recursion[0][4]->Fill(mult,sixRecursion.Re(),wSixRecursion); // <<cos(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
       hmult_recursion[1][4]->Fill(mult,sixRecursion.Im(),wSixRecursion); // <<sin(h1*phi1+h2*phi2+h3*phi3+h4*phi4+h5*phi5+h6*phi6)>>
+      }
       //  8-p correlations:
       //cout<<” => Calculating 8-p correlations (using recursion)...       \r"<<flush;
       int harmonics_Eight_Num[8] = {8,8,8,8,-8,-8,-8,-8};
@@ -194,8 +215,10 @@ int main()
       TComplex eightRecursion = Recursion(8,harmonics_Eight_Num)/Recursion(8,harmonics_Eight_Den).Re();
       //double spwEightRecursion = Recursion(8,harmonics_Eight_Den).Re();
       double wEightRecursion = 1.0;
+      if(mult >= 8){
       hmult_recursion[0][6]->Fill(mult,eightRecursion.Re(),wEightRecursion);
       hmult_recursion[1][6]->Fill(mult,eightRecursion.Im(),wEightRecursion);
+      }
       ////End of ripped codes from 'Boulder' codes
       // Has been edited to check higher k values for v
 
@@ -253,7 +276,10 @@ int main()
 
 
   //Tfile for I/O stuff
-  TFile* HistFile = new TFile("FileTwo.root","recreate");
+  string e = datetime();
+  string d = ("File" + e + ".root");
+  const char *f = d.c_str();
+  TFile* HistFile = new TFile(f,"recreate");
   HistFile->cd();
   heta->Write();
   heta_vec->Write();
