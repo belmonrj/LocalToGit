@@ -180,7 +180,7 @@ int main()
 
       for (Int_t i = 0; i < multBins; i++){
         for (Int_t j = 0; j < thetas; j++){
-          TProfile* LeeYangHistos[i][j] = new TH1D("LeeYang","z vs real",100,0,1);
+          LeeYangHistos[i][j] = new TH1D("LeeYang","z vs real",100,0,1);
           for (Int_t k = 0; k<maxPower; k++){//Drawing here from different parts of the TComplex of QVectors (where k is the index)
             float x = (float(i)/100);
             float y = (x*Qvector[2][k].Re());
