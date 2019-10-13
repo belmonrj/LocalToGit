@@ -1,7 +1,5 @@
 //First attempted implementation of the Lee-Yang Zeroes method for Heavy Ions w/Dr. Ron Belmont.
 //Aidan Lytle, Sep. 20 2019
-
-
 #include "TROOT.h"
 #include "TH1D.h"
 #include "TProfile.h"
@@ -18,9 +16,11 @@ using namespace std;
 //function declaration and variable declaration
 const double pi = 3.1415926;
 int M = 100;
+float LeeYangRoughDraft();
+float ZeroesLoop(float);
 
 //main function
-float ZeroesLoop()
+float LeeYangRoughDraft()
 {
   TCanvas* c1 = new TCanvas("c1","");
   TH1D *t1 = new TH1D("t1", "angles", 100, -pi, pi);
@@ -45,20 +45,26 @@ float ZeroesLoop()
   return sum;
 }
 
-float sum = ZeroesLoop();
+float sum = LeeYangRoughDraft();
 
 
-int LeeYangRoughDraft(float)
+float ZeroesLoop(float m)
 {
 
   TCanvas *c2 = new TCanvas("c2","r vs mag(ir)",200,10,500,300);
-  Double_t x[100], y[100];
-  Int_t n = 10;
+  Double_t x[10], y[10];
+  Int_t n = 10; // the z part of our code
   for (Int_t i=0;i<n;i++) {
-    x[i] = (float(n)/10);
-    y[i] = (float(n)/10)*(sum);
-   }
-   TGraph* gr = new TGraph(n,x,y);
-   gr->Draw("AC*");
-   return 0;
+    x[i] = (float(i)/10);
+    y[i] = (float(i)/10)*(m);
+  }
+  TGraph* gr = new TGraph(n,x,y);
+  gr->Draw("AC*");
+  return 0;
+}
+
+int main()
+{
+  ZeroesLoop(sum);
+  return 0;
 }

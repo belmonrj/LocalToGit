@@ -68,6 +68,14 @@ int main()
   //TComplex* BoulderCumulants = new TComplex(//stuff here to fill defintion of TComplex
   TProfile* hmult_recursion[2][maxCorrelator];
 
+  //LeeYang Histograms
+  TH1D* LeeYang = new TH1D("LeeYang","z vs real",100,0,1);
+
+
+
+
+
+
   for ( int cs = 0; cs < 2; ++cs )
     {
       for(int c = 0; c < maxCorrelator; ++c )
@@ -146,7 +154,6 @@ int main()
           Q2y += sin(2*p.phi());
           // Qy
 
-
           for(int h=0;h<maxHarmonic;h++)
             {
               for(int w=0;w<maxPower;w++)
@@ -157,6 +164,26 @@ int main()
             } // for(int h=0;h<maxHarmonic;h++)
 
         } // end loop over particles
+
+      /////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////
+      //Lee Yang Zeroes Code
+
+      Int_t n = 10;
+      for (Int_t i = 0; i<n;i++){
+        float x = (float(i)/100);
+        float y = (x*Qvector[2][0].Re());
+        LeeYang->Fill(y);
+      }
+
+          //^^^This still needs a TGraph^^^
+          //^^^and to be stored in the TFile^^^
+          ///////////////////////////////////////////////////////////////////
+          ///////////////////////////////////////////////////////////////////
+          ///////////////////////////////////////////////////////////////////
+
 
       ////Defining usage and objects necessary for Recursion and
       ////higher cumulants after particle loop, but over
@@ -236,6 +263,7 @@ int main()
   hPhi->Write();
   hPhi_vec->Write();
   tp1f_c22mult->Write();
+  LeeYang->Write();
   // --- write the recursion histograms
   for ( int cs = 0; cs < 2; ++cs )
     {
