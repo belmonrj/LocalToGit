@@ -70,7 +70,7 @@ int main()
 
   //LeeYang Histograms
   TH1D* LeeYang = new TH1D("LeeYang","z vs real",100,0,1);
-
+  TH1D* LeeYangHistos[multBins][thetas];
 
 
 
@@ -94,7 +94,7 @@ int main()
   //Main event loop
   ////
 
-  for (int iEvent = 0; iEvent < 500; ++iEvent)
+  for (int iEvent = 0; iEvent < 500000; ++iEvent)
     {
       // --- for the generic formulas ---------
       for(int h=0;h<maxHarmonic;h++)
@@ -177,6 +177,19 @@ int main()
         float y = (x*Qvector[2][0].Re());
         LeeYang->Fill(y);
       }
+
+      for (Int_t i = 0; i < multBins; i++){
+        for (Int_t j = 0; j < thetas; j++){
+          TProfile* LeeYangHistos[i][j] = new TH1D("LeeYang","z vs real",100,0,1);
+          for (Int_t k = 0; k<maxPower; k++){//Drawing here from different parts of the TComplex of QVectors (where k is the index)
+            float x = (float(i)/100);
+            float y = (x*Qvector[2][k].Re());
+            LeeYangHistos[i][j]->Fill(y);
+      
+          }
+        }
+      }
+
 
           //^^^This still needs a TGraph^^^
           //^^^and to be stored in the TFile^^^
