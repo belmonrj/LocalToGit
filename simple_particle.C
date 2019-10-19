@@ -166,23 +166,21 @@ int main()
                   //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
                   Qvector[h][w] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
                 } //  for(int w=0;w<maxPower;w++)
+              {
+                Int_t n = 10;
+                for (Int_t i = 0; i<n;i++){
+                  float x = (float(i)/100);
+                  float y = (x*Qvector[2][0].Re());
+                  LeeYang[h][w]->Fill(y);
+                }
+              }
             } // for(int h=0;h<maxHarmonic;h++)
 
         } // end loop over particles
 
       /////////////////////////////////////////////////////////////////////
       /////////////////////////////////////////////////////////////////////
-      /////////////////////////////////////////////////////////////////////
-      /////////////////////////////////////////////////////////////////////
-      //Lee Yang Zeroes Code
-
-      Int_t n = 10;
-      for (Int_t i = 0; i<n;i++){
-        float x = (float(i)/100);
-        float y = (x*Qvector[2][0].Re());
-        LeeYang->Fill(y);
       }
-
       //for (int i = 0; i < 
       //for (Int_t k = 0; k<maxPower; k++){//Drawing here from different parts of the TComplex of QVectors (where k is the index)
       // float x = (float(i)/100);
