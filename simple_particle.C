@@ -194,7 +194,7 @@ int main()
               for ( int thetabin = 0; thetabin < thetabins; ++thetabin )
                 {
                   float theta_width = (2*pi)/thetabins;
-                  float theta = i*theta_width;
+                  float theta = thetabin*theta_width;
                   float angle = phi-theta;
                   Qtheta[h][thetabin] += TComplex(cos(h*angle),sin(h*angle));
                 }
@@ -209,7 +209,7 @@ int main()
               for ( int thetabin = 0; thetabin < thetabins; ++thetabin )
                 {
                   float theta_width = (2*pi)/thetabins;
-                  float theta = i*theta_width;
+                  float theta = thetabin*theta_width;
                   float angle = phi-theta;
                   genfunP[rbin][thetabin] *= TComplex(1.0,r*cos(2*(angle)));
                 }
