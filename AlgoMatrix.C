@@ -6,8 +6,7 @@ using namespace std;
 int AlgoMatrix(int n)
 {
   vector<vector<int> > AlgoID;
-
-
+///////////
   vector<vector<int> > AlgoId(n, vector<int>(n,0));
   for( int i = 0; i < n; ++i )
     AlgoID[i][i] = 1;

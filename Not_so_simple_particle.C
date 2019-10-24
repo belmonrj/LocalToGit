@@ -101,7 +101,7 @@ int main()
   //Main event loop
   ////
 
-  for (int iEvent = 0; iEvent < 500; ++iEvent)
+  for (int iEvent = 0; iEvent < 2000000; ++iEvent)
     {
       // --- for the generic formulas ---------
       for(int h=0;h<maxHarmonic;h++)

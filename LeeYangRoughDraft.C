@@ -16,11 +16,11 @@ using namespace std;
 //function declaration and variable declaration
 const double pi = 3.1415926;
 int M = 100;
-float LeeYangRoughDraft();
+float Cosines();
 float ZeroesLoop(float);
 
 //main function
-float LeeYangRoughDraft()
+float Cosines()
 {
   TCanvas* c1 = new TCanvas("c1","");
   TH1D *t1 = new TH1D("t1", "angles", 100, -pi, pi);
@@ -40,12 +40,11 @@ float LeeYangRoughDraft()
   t1->GetXaxis()->SetRangeUser(-pi,pi);
   t1->Draw();
   costheta->GetXaxis()->SetRangeUser(-1,1);
-  costheta->Draw();
-  // What remains: find value of z for generating fucntion, then take the log and set it equal to the sum
+  costheta->Draw();  // What remains: find value of z for generating fucntion, then take the log and set it equal to the sum
   return sum;
 }
 
-float sum = LeeYangRoughDraft();
+float sum = Cosines();
 
 
 float ZeroesLoop(float m)
@@ -63,7 +62,7 @@ float ZeroesLoop(float m)
   return 0;
 }
 
-int main()
+int LeeYangRoughDraft()
 {
   ZeroesLoop(sum);
   return 0;
