@@ -69,16 +69,16 @@ int main()
   TProfile* hmult_recursion[2][maxCorrelator];
 
   //LeeYang Histograms
-  //TH1D* LeeYang = new TH1D("LeeYang","z vs real",100,0,1);
-  //TH1D* LeeYangHistos[multBins][thetas];
+  TH1D* LeeYang = new TH1D("LeeYang","z vs real",100,0,1);
+  TH1D* LeeYangHistos[multBins][thetas];
 
 
 
-  //for (Int_t i = 0; i < multBins; i++){
-  //for (Int_t j = 0; j < thetas; j++){
-  //  LeeYangHistos[i][j] = new TH1D(Form("LeeYang_%d_%d",i,j),"z vs real",100,0,1);
-  //}
-  //}
+  for (Int_t i = 0; i < multBins; i++){
+    for (Int_t j = 0; j < thetas; j++){
+      LeeYangHistos[i][j] = new TH1D(Form("LeeYang_%d_%d",i,j),"z vs real",100,0,1);
+    }
+  }
 
 
   for ( int cs = 0; cs < 2; ++cs )
@@ -99,7 +99,7 @@ int main()
   //Main event loop
   ////
 
-  for (int iEvent = 0; iEvent < 5000000; ++iEvent)
+  for (int iEvent = 0; iEvent < 500000; ++iEvent)
     {
       // --- for the generic formulas ---------
       for(int h=0;h<maxHarmonic;h++)
@@ -166,12 +166,12 @@ int main()
                   //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
                   Qvector[h][w] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
                 } //  for(int w=0;w<maxPower;w++)
-              //{
-              //Int_t n = 10;
-              //for (Int_t i = 0; i<n;i++){
-              //  float x = (float(i)/100);
-              //  float y = (x*Qvector[2][0].Re());
-              //  LeeYang[h][w]->Fill(y);
+              {
+                Int_t n = 10;
+                for (Int_t i = 0; i<n;i++){
+                  float x = (float(i)/100);
+                  float y = (x*Qvector[2][0].Re());
+                  LeeYang[h][w]->Fill(y);
                 }
               }
             } // for(int h=0;h<maxHarmonic;h++)
@@ -180,7 +180,7 @@ int main()
 
       /////////////////////////////////////////////////////////////////////
       /////////////////////////////////////////////////////////////////////
-//      }
+      }
       //for (int i = 0; i < 
       //for (Int_t k = 0; k<maxPower; k++){//Drawing here from different parts of the TComplex of QVectors (where k is the index)
       // float x = (float(i)/100);
