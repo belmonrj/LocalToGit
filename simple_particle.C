@@ -31,6 +31,12 @@ TComplex Q(int, int);
 TComplex Recursion(int, int*);
 TComplex Recursion(int, int*, int, int);
 
+static const int rbins = 100;
+static const int thetabins = 10;
+TComplex Qtheta[maxHarmonic][thetabins];
+TComplex genfunS[rbins][thetabins]; // sum
+TComplex genfunP[rbins][thetabins]; // product
+
 int main()
 {
 
@@ -69,14 +75,17 @@ int main()
   TProfile* hmult_recursion[2][maxCorrelator];
 
   //LeeYang Histograms
-  TH1D* LeeYang = new TH1D("LeeYang","z vs real",100,0,1);
-  TH1D* LeeYangHistos[multBins][thetas];
+  TProfile* LeeYang = new TProfile("LeeYang","",rbins,0,1,-1e10,1e10);
+  const int multbins = 10; // we'll do just a few for now, may do more later
+  TProfile* LeeYangHistosS[multbins][thetabins];
+  TProfile* LeeYangHistosP[multbins][thetabins];
 
 
 
-  for (Int_t i = 0; i < multBins; i++){
-    for (Int_t j = 0; j < thetas; j++){
-      LeeYangHistos[i][j] = new TH1D(Form("LeeYang_%d_%d",i,j),"z vs real",100,0,1);
+  for (Int_t i = 0; i < multbins; i++){
+    for (Int_t j = 0; j < thetabins; j++){
+      LeeYangHistosS[i][j] = new TProfile(Form("LeeYangS_mult%d_theta%d",i,j),"",rbins,0,1,-1e10,1e10);
+      LeeYangHistosP[i][j] = new TProfile(Form("LeeYangP_mult%d_theta%d",i,j),"",rbins,0,1,-1e10,1e10);
     }
   }
 
@@ -99,7 +108,7 @@ int main()
   //Main event loop
   ////
 
-  for (int iEvent = 0; iEvent < 500000; ++iEvent)
+  for (int iEvent = 0; iEvent < 50; ++iEvent)
     {
       // --- for the generic formulas ---------
       for(int h=0;h<maxHarmonic;h++)
@@ -108,8 +117,20 @@ int main()
             {
               Qvector[h][w] = TComplex(0.,0.);
             } //  for(int p=0;p<maxPower;p++)
+          for ( int i = 0; i < thetabins; ++i )
+            {
+              Qtheta[h][i] = TComplex(0.0,0.0);
+            }
         } // for(int h=0;h<maxHarmonic;h++)
       // --------------------------------------
+      for ( int i = 0; i < rbins; ++i )
+        {
+          for ( int j = 0; j < thetabins; ++j )
+            {
+              genfunS[i][j] = TComplex(0.0,0.0); // initialize to 0, calculate directly
+              genfunP[i][j] = TComplex(1.0,1.0); // initialize to 1, calcualte via product
+            }
+        }
 
       if (!pythia.next()) continue;
       // Find number of all final charged particles and fill histogram.
@@ -154,46 +175,78 @@ int main()
               if(p.pT() > 1.0 && p.pT() < 3.0) parts.push_back(&p);
             }
 
-          Q2x += cos(2*p.phi());
+          double phi = p.phi();
+          Q2x += cos(2*phi);
           // Qx
-          Q2y += sin(2*p.phi());
+          Q2y += sin(2*phi);
           // Qy
 
+          // ---------------------------
+          // --- calculate the Q-vectors
+          // ---
           for(int h=0;h<maxHarmonic;h++)
             {
               for(int w=0;w<maxPower;w++)
                 {
                   //if(bUseWeights){wPhiToPowerP = pow(wPhi,p);} // no weights for us...
-                  Qvector[h][w] += TComplex(cos(h*p.phi()),sin(h*p.phi()));
+                  Qvector[h][w] += TComplex(cos(h*phi),sin(h*phi));
                 } //  for(int w=0;w<maxPower;w++)
-              {
-                Int_t n = 10;
-                for (Int_t i = 0; i<n;i++){
-                  float x = (float(i)/100);
-                  float y = (x*Qvector[2][0].Re());
-                  LeeYang[h][w]->Fill(y);
+              for ( int thetabin = 0; thetabin < thetabins; ++thetabin )
+                {
+                  float theta_width = (2*pi)/thetabins;
+                  float theta = thetabin*theta_width;
+                  float angle = phi-theta;
+                  Qtheta[h][thetabin] += TComplex(cos(h*angle),sin(h*angle));
                 }
-              }
-            } // for(int h=0;h<maxHarmonic;h++)
+            } // loop over harmonics
+
+          // ---------------------------------------------
+          // --- calculate the product generating function
+          // ---
+          for ( int rbin = 0; rbin < rbins; ++rbin )
+            {
+              double r = (double(rbin)/rbins);
+              for ( int thetabin = 0; thetabin < thetabins; ++thetabin )
+                {
+                  float theta_width = (2*pi)/thetabins;
+                  float theta = thetabin*theta_width;
+                  float angle = phi-theta;
+                  genfunP[rbin][thetabin] *= TComplex(1.0,r*cos(2*(angle)));
+                }
+            }
 
         } // end loop over particles
 
       /////////////////////////////////////////////////////////////////////
       /////////////////////////////////////////////////////////////////////
-      }
-      //for (int i = 0; i < 
+      //} // stray bracket showed up here, wreaking havoc
+      //for (int i = 0; i <
       //for (Int_t k = 0; k<maxPower; k++){//Drawing here from different parts of the TComplex of QVectors (where k is the index)
       // float x = (float(i)/100);
       // float y = (x*Qvector[2][k].Re());
       // LeeYangHistos[i][j]->Fill(y);
-       
 
-          //^^^This still needs a TGraph^^^
-          //^^^and to be stored in the TFile^^^
-          ///////////////////////////////////////////////////////////////////
-          ///////////////////////////////////////////////////////////////////
-          ///////////////////////////////////////////////////////////////////
 
+      //^^^This still needs a TGraph^^^
+      //^^^and to be stored in the TFile^^^
+      ///////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////
+
+      // -------------------------------------------
+      // --- fill the generating function histograms
+      // ---
+      int multbin = mult/10;
+      for ( int rbin = 0; rbin < rbins; ++rbin )
+        {
+          double r = (double(rbin)/rbins);
+          for ( int thetabin = 0; thetabin < thetabins; ++thetabin )
+            {
+              genfunS[rbin][thetabin] = TComplex::Exp(r*Qtheta[2][thetabin]); // generating function from Q-vectors
+              LeeYangHistosS[multbin][thetabin]->Fill(r,genfunS[rbin][thetabin].Rho());
+              LeeYangHistosP[multbin][thetabin]->Fill(r,genfunP[rbin][thetabin].Rho());
+            }
+        }
 
       ////Defining usage and objects necessary for Recursion and
       ////higher cumulants after particle loop, but over
@@ -280,6 +333,14 @@ int main()
       for(int c = 0; c < maxCorrelator; ++c )
         {
           hmult_recursion[cs][c]->Write();
+        }
+    }
+  for ( int i = 0; i < multbins; ++i )
+    {
+      for ( int j = 0; j < thetabins; ++j )
+        {
+          LeeYangHistosS[i][j]->Write();
+          LeeYangHistosP[i][j]->Write();
         }
     }
   HistFile->Close();
