@@ -6,7 +6,8 @@ void simple_fit()
   gStyle->SetOptStat(0);
 
   //TFile* file = TFile::Open("FileTwo.root");
-  TFile* file = TFile::Open("FileComplete20-09-2019.root");
+  //TFile* file = TFile::Open("FileComplete20-09-2019.root");
+  TFile* file = TFile::Open("FileOne.root");
   //Definitions of <<2>>
   TProfile* hm_0 = (TProfile*)file->Get("hmult_recursion_0_0");
   //Definitions of <<4>>
